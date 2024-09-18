@@ -1,0 +1,24 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "white_100",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "btn_select_color",
+      "value": "#007BFF"
+    },
+    {
+      "name": "white_70",
+      "value": "#B3B3B3"
+    },
+    {
+      "name": "transparent",
+      "value": "#00000000"
+    }
+  ]
+}
