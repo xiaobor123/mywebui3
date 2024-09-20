@@ -8,10 +8,10 @@ export interface Config {
   options: webview.CacheOptions
 }
 
-export let configs_jd: Array<Config> = [
+export let configs_baidu: Array<Config> = [
   {
-    url: 'https://misc.360buyimg.com/jdf/lib/jquery-1.6.4.js?v=20240117',
-    localPath: 'jquery-1.6.4.js',
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/resource/js/usermonitor_88a158c.js?v=1.2',
+    localPath: 'usermonitor_88a158c.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -20,8 +20,8 @@ export let configs_jd: Array<Config> = [
     }
   },
   {
-    url: 'https://wl.jd.com/wl.js',
-    localPath: 'wl.js',
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/js/jquery-1.8.3.min_a6ffa58.js',
+    localPath: 'jquery-1.8.3.min_a6ffa58.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -30,8 +30,8 @@ export let configs_jd: Array<Config> = [
     }
   },
   {
-    url: 'https://misc.360buyimg.com/??mtd/pc/common/js/o2_ua.js,mtd/pc/base/1.0.0/event.js?v=20240117',
-    localPath: 'o2_ua+event.js',
+    url: 'https://efe-h2.cdn.bcebos.com/cliresource/ubc-report-sdk/2.0.8/ubc-web-sdk.umd.min.js',
+    localPath: 'ubc-web-sdk.umd.min.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -40,8 +40,8 @@ export let configs_jd: Array<Config> = [
     }
   },
   {
-    url: 'https://h5static.m.jd.com/act/jd-jssdk/latest/jd-jssdk.min.js',
-    localPath: 'jd-jssdk.min.js',
+    url: 'https://gss0.bdstatic.com/5foIcy0a2gI2n2jgoY3K/static/fisp_static/wza/aria.js?appid=c890648bf4dd00d05eb9751dd0548c30',
+    localPath: 'aria.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -50,8 +50,8 @@ export let configs_jd: Array<Config> = [
     }
   },
   {
-    url: 'https://gias.jd.com/js/pc-tk.js?v=20240117',
-    localPath: 'pc-tk.js',
+    url: 'https://news-bos.cdn.bcebos.com/mvideo/pcconf_2019.js?1726819150345',
+    localPath: 'pcconf_2019.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -60,8 +60,68 @@ export let configs_jd: Array<Config> = [
     }
   },
   {
-    url: 'https://storage.360buyimg.com/staticapp/pc_mall_public/encrypt/sha256.js?v=20240117',
-    localPath: 'sha256.js',
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/lib/mod_b818356.js',
+    localPath: 'mod_b818356.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/framework_static_include/framework_static_include_aa59e0d.js',
+    localPath: 'framework_static_include_aa59e0d.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/focustop/focustop_b924ecb.js',
+    localPath: 'focustop_b924ecb.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/module_static_include/module_static_include_5d6af88.js',
+    localPath: 'module_static_include_5d6af88.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://fex.bdstatic.com/hunter/alog/alog.min.js?v=-19987-19987',
+    localPath: 'alog.min.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://hm.baidu.com/h.js?e9e114d958ea263de46e080563e254c4',
+    localPath: 'h.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+      ]
+    }
+  },
+  {
+    url: 'https://fex.bdstatic.com/hunter/alog/dp.min.js?v=-19987-19987',
+    localPath: 'dp.min.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },

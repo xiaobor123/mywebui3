@@ -29,8 +29,8 @@ export default class EntryAbility extends UIAbility {
     windowStage.loadContent('pages/Index', (err, data) => {
       // 创建ArkWeb动态组件（需传入UIContext），loadContent之后的任意时机均可创建
       createNWeb('https://news.baidu.com/','http://www.people.com.cn/', windowStage.getMainWindowSync().getUIContext());
-      createNWeb('http://www.people.com.cn/','https://www.thepaper.cn/', windowStage.getMainWindowSync().getUIContext());
-      createNWeb('https://www.thepaper.cn/','https://news.sina.com.cn/', windowStage.getMainWindowSync().getUIContext());
+      //createNWeb('http://www.people.com.cn/','https://www.thepaper.cn/', windowStage.getMainWindowSync().getUIContext());
+      //createNWeb('https://www.thepaper.cn/','https://news.sina.com.cn/', windowStage.getMainWindowSync().getUIContext());
       //createNWeb('https://news.sina.com.cn/','https://news.sina.com.cn/' , windowStage.getMainWindowSync().getUIContext());
       if (err.code) {
         return;

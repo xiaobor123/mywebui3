@@ -40,12 +40,12 @@ struct TabsExample {
       .tabBar(this.TabBuilder('百度新闻', 0, $r('app.media.home_selected'), $r('app.media.home_normal')))
 
 
-      TabContent() {
-         NodeContainer(getNWeb('https://www.thepaper.cn/'))
-           .height('90%')
-           .width('100%')
-       }
-       .tabBar(this.TabBuilder('澎湃新闻', 1, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
+      //TabContent() {
+         //NodeContainer(getNWeb('https://www.thepaper.cn/'))
+           //.height('90%')
+           //.width('100%')
+       //}
+       //.tabBar(this.TabBuilder('澎湃新闻', 1, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
 
       /*TabContent() {
         NodeContainer(getNWeb('https://news.sina.com.cn/'))

@@ -4,7 +4,7 @@ import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
-import {configs_jd,Config} from './myjava'
+import {configs_baidu,Config} from './myjava'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 class Data{
@@ -44,18 +44,17 @@ function WebBuilder(data:Data) {
         console.log(`load page end: ${event?.url}`);
 
       })
-      /*.onControllerAttached(async () => {
+      .onControllerAttached(async () => {
         // 读取配置，进行预编译
         let array2: Array<Config> = []
-        if(data.url = 'https://www.jd.com/'){
-          array2 = configs_jd
+        if(data.url = 'https://news.baidu.com/'){
+          array2 = configs_baidu
         }
 
         for (let config of array2) {
           //这里还有点问题，引入预编译JavaScript生成字节码缓存（Code Cache）和离线资源免拦截注入都需要下载相应的文件到本地
           //不知道这点是否允许，而且后续需要以接口的形式发布到三方库，因此暂缓这几点的引入。
           let content = await getContext().resourceManager.getRawFileContentSync(config.localPath);
-
           try {
             data.controller.precompileJavaScript(config.url, content, config.options)
               .then((errCode: number) => {
@@ -67,7 +66,7 @@ function WebBuilder(data:Data) {
             console.error('precompile failed!.' + err.code + err.message);
           }
         }
-      })*/
+      })
   }
 }
 
