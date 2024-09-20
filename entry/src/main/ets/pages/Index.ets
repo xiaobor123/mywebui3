@@ -5,6 +5,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import {createNWeb, getNWeb} from './common'
+import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component
@@ -30,33 +31,29 @@ struct TabsExample {
 
   build() {
     Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
-      TabContent() {
+       TabContent() {
         NodeContainer(getNWeb('https://news.baidu.com/'))
           .height('90%')
           .width('100%')
+
       }
       .tabBar(this.TabBuilder('百度新闻', 0, $r('app.media.home_selected'), $r('app.media.home_normal')))
 
-      TabContent() {
-        NodeContainer(getNWeb('https://www.jd.com/'))
-          .height('90%')
-          .width('100%')
-      }
-      .tabBar(this.TabBuilder('京东', 1, $r('app.media.mine_selected'), $r('app.media.mine_normal')))
 
       TabContent() {
-        NodeContainer(getNWeb('https://www.taobao.com/'))
-          .height('90%')
-          .width('100%')
-      }
-      .tabBar(this.TabBuilder('淘宝', 2, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
+         NodeContainer(getNWeb('https://www.thepaper.cn/'))
+           .height('90%')
+           .width('100%')
+       }
+       .tabBar(this.TabBuilder('澎湃新闻', 1, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
 
-      TabContent() {
+      /*TabContent() {
         NodeContainer(getNWeb('https://news.sina.com.cn/'))
           .height('90%')
           .width('100%')
       }
       .tabBar(this.TabBuilder('新浪新闻', 3, $r('app.media.mine3_selected'), $r('app.media.mine3_normal')))
+      */
     }
     .barWidth('100%')
     .barHeight(50)

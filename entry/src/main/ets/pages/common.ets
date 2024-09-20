@@ -25,19 +25,26 @@ function WebBuilder(data:Data) {
       .width('100%')
       .height('100%')
       .onAppear(() => {
-
+        // 指定第二个参数为true，代表要进行预连接，如果为false该接口只会对网址进行dns预解析
+        // 第三个参数为要预连接socket的个数。最多允许6个。
+        webview.WebviewController.prepareForPageLoad(data.url, true, 2);
       })
       .onPageBegin((event) => {
+        if(data.url = 'https://news.baidu.com/'){
+          hiTraceMeter.startTrace('load', 1);
+        }
         console.log(`load page begin: ${event?.url}`);
-        hiTraceMeter.startTrace('load'+'_'+data.url, 1);
       })
       .onPageEnd((event) => {
         // 预连接https://www.example1.com/
-        hiTraceMeter.finishTrace('load'+'_'+data.url, 1);
+        if(data.url = 'https://news.baidu.com/'){
+          hiTraceMeter.finishTrace('load', 1);
+        }
         data.controller.prefetchPage(data.pfp1)
         console.log(`load page end: ${event?.url}`);
+
       })
-      .onControllerAttached(async () => {
+      /*.onControllerAttached(async () => {
         // 读取配置，进行预编译
         let array2: Array<Config> = []
         if(data.url = 'https://www.jd.com/'){
@@ -60,7 +67,7 @@ function WebBuilder(data:Data) {
             console.error('precompile failed!.' + err.code + err.message);
           }
         }
-      })
+      })*/
   }
 }
 
