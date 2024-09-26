@@ -8,14 +8,10 @@ import {configs,Config,basicResources,ResourceConfig} from './myjava'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 class Data{
-  url: string = 'https://www.jd.com/';
+  url: string = '';
   controller: WebviewController = new webview.WebviewController();
-  pfp1: string = 'https://www.jd.com/';
 }
-
-let is_load_xl:number = 0;
 const storage = LocalStorage.getShared();
-
 
 @Builder
 function WebBuilder(data:Data) {
@@ -28,66 +24,14 @@ function WebBuilder(data:Data) {
       .width('100%')
       .height('100%')
       .onAppear(() => {
-        // 指定第二个参数为true，代表要进行预连接，如果为false该接口只会对网址进行dns预解析
-        // 第三个参数为要预连接socket的个数。最多允许6个。
-        //webview.WebviewController.prepareForPageLoad(data.url, true, 2);
-        console.log(`load page begin: `);
-        console.log('111111 on appear');
       })
       .onPageBegin((event) => {
-        console.log(`load page start: ${event?.url}`);
-
       })
       .onPageVisible((event)=>{
-      console.log("1111 vis");
-    })
+      })
       .onPageEnd((event) => {
-        // 预连接https://www.example1.com/
-        console.log(`load page end: ${event?.url}`);
-        /*if(is_load_xl != 0){
-          return;
-        }
-        is_load_xl = is_load_xl+1;
-        const storage = LocalStorage.getShared();
-        const uiContext1: UIContext = storage.get<UIContext>("uiContext") as UIContext;
-        if (!uiContext1) {
-          return;
-        }
-        if(data.url == 'https://m.baidu.com/'){
-          hiTraceMeter.finishTrace('load', 1);
-          createNWeb('https://www.thepaper.cn/','https://news.sina.com.cn/', uiContext1);
-        }
-        data.controller.prefetchPage(data.pfp1)
-        */
       })
       .onControllerAttached(async () => {
-        // 读取配置，进行预编译
-        /*
-        let array2: Array<Config> = []
-        if(data.url == 'https://m.baidu.com/'){
-          array2 = configs_baidu
-        }
-        for (let config of array2) {
-          let content = await getContext().resourceManager.getRawFileContentSync(config.localPath);
-          try {
-            data.controller.precompileJavaScript(config.url, content, config.options)
-              .then((errCode: number) => {
-                console.log('precompile successfully!' );
-              }).catch((errCode: number) => {
-              console.error('precompile failed.' + errCode);
-            })
-          } catch (err) {
-            console.error('precompile failed!.' + err.code + err.message);
-          }
-        }
-
-
-        try {
-          data.controller.injectOfflineResources(await getData (data.url));
-        } catch (err) {
-          console.error("error: " + err.code + " " + err.message);
-        }
-        */
       })
 
   }
@@ -135,7 +79,7 @@ export class myNodeController extends NodeController {
 
   // 此函数为自定义函数，可作为初始化函数使用
   // 通过UIContext初始化BuilderNode，再通过BuilderNode中的build接口初始化@Builder中的内容
-  initWeb(url:string,pfp1:string, control:WebviewController) {
+  initWeb(url:string, control:WebviewController) {
     if(this.rootnode != null)
     {
       return;
@@ -149,7 +93,7 @@ export class myNodeController extends NodeController {
 
 
     // 创建动态Web组件
-    this.rootnode.build(wrap, { url:url, controller:control, pfp1:pfp1 })
+    this.rootnode.build(wrap, { url:url, controller:control})
   }
 }
 // 创建Map保存所需要的NodeController
@@ -158,50 +102,17 @@ let NodeMap:Map<string, myNodeController | undefined> = new Map();
 let controllerMap:Map<string, WebviewController | undefined> = new Map();
 
 // 初始化需要UIContext 需在Ability获取
-export const createNWeb = (url: string, pfp1:string) => {
+export const createCommonWeb = (url: string) => {
   // 创建NodeController
   let baseNode = new myNodeController();
   let controller = new webview.WebviewController() ;
   // 初始化自定义web组件
-  baseNode.initWeb(url, pfp1, controller);
+  baseNode.initWeb(url, controller);
   controllerMap.set(url, controller)
   NodeMap.set(url, baseNode);
 }
 // 自定义获取NodeController接口
-export const getNWeb = (url : string) : myNodeController | undefined => {
+export const getCommonWeb = (url : string) : myNodeController | undefined => {
   return NodeMap.get(url);
 }
 
-
-export async function getData(url: string ) {
-  const resourceMapArr: Array<webview.OfflineResourceMap> = [];
-
-  let basicResources: Array<ResourceConfig> = [];
-  if(url == 'https://m.baidu.com/'){
-    basicResources =basicResources;
-  }
-  // 读取配置，从rawfile目录中读取文件内容
-  for (let config of basicResources) {
-    let buf: Uint8Array = new Uint8Array(0);
-    if (config.localPath) {
-      buf = await readRawFile(config.localPath);
-    }
-
-    resourceMapArr.push({
-      urlList: config.urlList,
-      resource: buf,
-      responseHeaders: config.responseHeaders,
-      type: config.type,
-    })
-  }
-
-  return resourceMapArr;
-}
-
-export async function readRawFile(url: string) {
-  try {
-    return await getContext().resourceManager.getRawFileContent(url);
-  } catch (err) {
-    return new Uint8Array(0);
-  }
-}

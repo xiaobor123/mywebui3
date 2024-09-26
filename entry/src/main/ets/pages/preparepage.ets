@@ -3,12 +3,12 @@
 import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import {configs,Config,basicResources,ResourceConfig} from './myjava'
+import {createCommonWeb, getCommonWeb} from './common'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 class Data{
-  url: string = 'https://www.jd.com/';
+  url: string = '';
   controller: WebviewController = new webview.WebviewController();
 }
 
@@ -40,9 +40,10 @@ function WebBuilder(data:Data) {
       .width('100%')
       .height('100%')
       .onAppear(() => {
-
       })
       .onPageBegin((event) => {
+        createCommonWeb('https://m.thepaper.cn/');
+        createCommonWeb('https://app.people.cn/');
       })
       .onPageEnd((event) => {
 
@@ -77,6 +78,7 @@ function WebBuilder(data:Data) {
         }
 
         //后台渲染其他网页
+
 
 
 
@@ -150,7 +152,7 @@ let NodeMap:Map<string, myNodeController | undefined> = new Map();
 let controllerMap:Map<string, WebviewController | undefined> = new Map();
 
 // 初始化需要UIContext 需在Ability获取
-export const createNWeb = (url: string, pfp1:string) => {
+export const createNWeb = (url: string) => {
   // 创建NodeController
   let baseNode = new myNodeController();
   let controller = new webview.WebviewController() ;
