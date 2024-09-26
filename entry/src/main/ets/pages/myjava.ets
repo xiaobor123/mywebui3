@@ -8,7 +8,7 @@ export interface Config {
   options: webview.CacheOptions
 }
 
-export let configs_baidu: Array<Config> = [
+export let configs: Array<Config> = [
   {
     url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/resource/js/usermonitor_88a158c.js?v=1.2',
     localPath: 'usermonitor_88a158c.js',
@@ -130,4 +130,99 @@ export let configs_baidu: Array<Config> = [
     }
   },
 ]
+
+
+
+
+export interface ResourceConfig {
+  urlList: Array<string>,
+  type: webview.OfflineResourceType,
+  responseHeaders: Array<Header>,
+  localPath: string,
+}
+
+export const basicResources: Array<ResourceConfig> = [
+  {
+    localPath: "log-news.png",
+    urlList: [
+      'https://news-bos.cdn.bcebos.com/mvideo/log-news.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "newErweima_9fa03e0.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/newErweima_9fa03e0.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "report_3c9a61f.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/report_3c9a61f.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "roumer_033b02b.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/roumer_033b02b.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "accessibility_7ba1339.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/accessibility_7ba1339.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "arrow-down_88161d2.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/arrow-down_88161d2.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "bg_19da_xinjingjie_029074f.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/bg_19da_xinjingjie_029074f.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "icon-carousel_b4b1d29.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/icon-carousel_b4b1d29.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "icon-dot-2x_fe00451.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/icon-dot-2x_fe00451.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "icon-merged_b8bc211.png",
+    urlList: [
+      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/icon-merged_b8bc211.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+];
+
+
 
