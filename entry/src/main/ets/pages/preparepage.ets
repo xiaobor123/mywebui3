@@ -42,18 +42,20 @@ function WebBuilder(data:Data) {
       .onAppear(() => {
       })
       .onPageBegin((event) => {
-        createCommonWeb('https://m.thepaper.cn/');
-        createCommonWeb('https://app.people.cn/');
+        //此步骤大概花费60ms;
+        for (let url1 of array1) {
+          data.controller.prefetchPage(url1.url)
+        }
+        //
+        //createCommonWeb('https://m.thepaper.cn/');
+        //createCommonWeb('https://app.people.cn/');
       })
       .onPageEnd((event) => {
 
       })
-      .onControllerAttached(async () => {
+    //预编译加资源拦截注入大概花费1100ms
+      /*.onControllerAttached(async () => {
         //预下载
-        for (let url1 of array1) {
-          data.controller.prefetchPage(url1.url)
-        }
-
         // 读取配置，进行预编译
         let array2: Array<Config> = configs
         for (let config of array2) {
@@ -77,12 +79,11 @@ function WebBuilder(data:Data) {
           console.error("error: " + err.code + " " + err.message);
         }
 
-        //后台渲染其他网页
+        //console.log('precompilejava end')
 
 
 
-
-      })
+      })*/
 
   }
 }

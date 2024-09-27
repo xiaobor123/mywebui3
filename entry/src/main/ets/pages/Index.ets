@@ -5,6 +5,8 @@ import web_webview from '@ohos.web.webview'
 //lazyforeach 优化tabs（可能用不了）
 // 高负载场景下分针渲染
 //全局自定义组件复用实现
+//多线程优化
+//组件复用
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
@@ -25,8 +27,13 @@ struct TabsExample {
     webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
     webview.WebviewController.prepareForPageLoad('https://m.thepaper.cn/', true, 2);
     webview.WebviewController.prepareForPageLoad('https://app.people.cn/', true, 2);
+    //可能是异步的，大约只花费了50ms
+    //console.log('create start')
     createNWeb('https://xxx');
     createCommonWeb('https://m.baidu.com/');
+    createCommonWeb('https://m.thepaper.cn/');
+    createCommonWeb('https://app.people.cn/');
+    //console.log('create end')
   }
 
 
@@ -48,6 +55,7 @@ struct TabsExample {
 
   build() {
     Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
+      //LazyForEach()
          TabContent() {
           NodeContainer(getCommonWeb('https://m.baidu.com/'))
             .height('90%')
