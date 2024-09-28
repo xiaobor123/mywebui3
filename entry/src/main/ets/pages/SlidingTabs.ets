@@ -6,14 +6,15 @@ export type BarMode = "scroll" | "fixed"
 /**
  * 高度可拓展的TabLayout
  * */
+
 @ComponentV2
 export struct SlidingTabs {
   @Param @Require tabs: string[]
-  @Param @Require names: string[]
+  @Param @Require names: Array<[string, Resource]>
   @Event onChange: (index: number) => void
   @Param tabStyle: ITabStyle = {}
   @Param barMode: BarMode = "scroll"
-  @BuilderParam onTabItemBuilder?: (tab: string, index: number) => void
+  @BuilderParam onTabItemBuilder?: (tab: [string, Resource], index: number) => void
   @BuilderParam onTabIndicatorBuilder?: CustomBuilder
   @Param tabController: SlidingTabController = new SlidingTabController()
 
@@ -54,7 +55,7 @@ export struct SlidingTabs {
 
       Scroll(this.tabController.tabScroller) {
         Row() {
-          ForEach(this.names, (item: string, index: number) => {
+          ForEach(this.names, (item: [string, Resource], index: number) => {
 
             Stack({ alignContent: Alignment.Center }) {
               if (this.onTabItemBuilder) {
@@ -103,23 +104,10 @@ export struct SlidingTabs {
     .alignContent(Alignment.Start)
   }
 
-  @Builder
-  TabRowBuilder(barMode: BarMode) {
-    if (barMode == "scroll") {
-
-    } else {
-      Row() {
-        ForEach(this.tabs, (item: string, index: number) => {
-          this.TabItemBuilder(item, index ?? 0)
-        })
-      }
-      .width('100%').height(50)
-    }
-  }
 
   @Builder
-  TabItemBuilder(tab: string, index: number) {
-    Text(tab)
+  TabItemBuilder(tab: [string, Resource], index: number) {
+    Text(tab[0])
       .fontColor((this.tabController.selectedTabIndex == index ? this.tabStyle.fontColorSelect :
       this.tabStyle.fontColorNormal) ?? this.tabStyle.fontColor)
       .fontWeight((this.tabController.selectedTabIndex == index ? this.tabStyle.fontWeightSelect :
