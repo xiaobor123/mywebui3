@@ -7,24 +7,21 @@ import web_webview from '@ohos.web.webview'
 //全局自定义组件复用实现
 //多线程优化
 //组件复用
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import {createNWeb, getNWeb} from './preparepage'
 import {createCommonWeb, getCommonWeb} from './common'
 import { displaySync } from '@kit.ArkGraphics2D';
+import { SlidingTabController } from '@xqw/sliding-tabs/src/main/ets/SlidingTabController'
+import { SlidingTabs } from '@xqw/sliding-tabs/src/main/ets/SlidingTabs'
+
 
 
 
 @Entry
-@Component
+@ComponentV2
 struct TabsExample {
+  tabController = new SlidingTabController()
 
-  @State currentIndex: number = 0;
-  private tabsController: TabsController = new TabsController();
-  private webviewController1: webview.WebviewController = new webview.WebviewController();
-  private displaySync: displaySync.DisplaySync | undefined = undefined;
-  private frame: number = 1;
   aboutToAppear(): void {
     // 初始化用于注入本地资源的Web组件
     webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
@@ -38,59 +35,72 @@ struct TabsExample {
     createCommonWeb('https://app.people.cn/');
     //console.log('create end')
   }
-
-
-  @Builder TabBuilder(title: string, targetIndex: number, selectedImg: Resource, normalImg: Resource) {
-    Column() {
-      Image(this.currentIndex === targetIndex ? selectedImg : normalImg)
-        .size({ width: 25, height: 25 })
-      Text(title)
-        .fontColor(this.currentIndex === targetIndex ? '#1698CE' : '#6B6B6B')
-    }
-    .width('100%')
-    .height(50)
-    .justifyContent(FlexAlign.Center)
-    .onClick(() => {
-      console.log("click start ")
-      this.currentIndex = targetIndex;
-      this.tabsController.changeIndex(this.currentIndex);
-    })
-  }
+  @Local tabs: Array<string> = [
+    'https://m.baidu.com/',
+    'https://m.thepaper.cn/',
+    'https://app.people.cn/'
+  ]
 
   build() {
-    Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
-      //LazyForEach()
-         TabContent() {
-          NodeContainer(getCommonWeb('https://m.baidu.com/'))
-            .height('90%')
-            .width('100%')
-
+    Column(){
+      Divider().height(2)
+      Text("搭配Swiper使用").height(40)
+      Divider().height(2)
+      SlidingTabs({
+        tabs: this.tabs,
+        barMode : "fixed",
+        tabController: this.tabController,
+        tabStyle:{
+          indicatorWidthWrapTab:true,
+          fontColorSelect:Color.Blue
+        },
+        onTabIndicatorBuilder:()=>{
+          this.TabIndicator()
+        },
+        onTabItemBuilder:(tab,index)=>{
+          this.TabItem(tab,index)
         }
-        .tabBar(this.TabBuilder('百度新闻', 0, $r('app.media.home_selected'), $r('app.media.home_normal')))
 
-
-        TabContent() {
-           NodeContainer(getCommonWeb('https://m.thepaper.cn/'))
-             .height('90%')
-             .width('100%')
-
-         }
-         .tabBar(this.TabBuilder('澎湃新闻', 1, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
-
-        TabContent() {
-          NodeContainer(getCommonWeb('https://app.people.cn/'))
-            .height('90%')
-            .width('100%')
-
-        }
-        .tabBar(this.TabBuilder('人民日报', 2, $r('app.media.mine3_selected'), $r('app.media.mine3_normal')))
-
+      })
+      Swiper(this.tabController.swiperController){
+        ForEach(this.tabs,(item:string,index)=>{
+          Stack()
+          {
+            NodeContainer(getCommonWeb(item))
+              .height('90%')
+              .width('100%')
+          }
+          .width('100%').height('100%')
+        })
+      }.layoutWeight(1)
+      .onGestureSwipe((index,extraInfo)=>{
+        this.tabController.swiperOnGestureSwipe(index,extraInfo)
+      })
+      .onAreaChange((oldValue,newValue)=>{
+        this.tabController.swiperOnAreaChange(oldValue,newValue)
+      })
+      .onAnimationStart((index,targetIndex,extraInfo)=>{
+        this.tabController.swiperOnAnimationStart(index,targetIndex,extraInfo)
+      })
     }
-    .barWidth('100%')
-    .barHeight(50)
-    .backgroundColor('#f2f3f5')
-    .onChange((index: number) => {
-      this.currentIndex = index;
-    })
   }
+
+  @Builder
+  TabIndicator(){
+    Stack().width('100%').height('100%')
+      .backgroundColor(Color.Pink).borderRadius(12)
+  }
+
+  @Builder
+  TabItem(tab:string,index:number){
+    Column(){
+      Image($r('app.media.app_icon')).width(20).margin({bottom:4})
+      Text(tab)
+        .fontColor(this.tabController.selectedTabIndex == index ? Color.Black : Color.Gray)
+        .fontWeight(this.tabController.selectedTabIndex == index ? FontWeight.Medium : FontWeight.Normal)
+        .fontSize(this.tabController.selectedTabIndex == index ? 18 : 16)
+        .animation({ duration: 300 })
+    }
+  }
+
 }
