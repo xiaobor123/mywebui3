@@ -1,5 +1,3 @@
-import web_webview from '@ohos.web.webview'
-
 // todo: 搞一个离线渲染的web组件用于加载所有内容
 // 找简单的网页
 //lazyforeach 优化tabs（可能用不了）
@@ -11,8 +9,8 @@ import { webview } from '@kit.ArkWeb';
 import {createNWeb, getNWeb} from './preparepage'
 import {createCommonWeb, getCommonWeb} from './common'
 import { displaySync } from '@kit.ArkGraphics2D';
-import { SlidingTabController } from '@xqw/sliding-tabs/src/main/ets/SlidingTabController'
-import { SlidingTabs } from '@xqw/sliding-tabs/src/main/ets/SlidingTabs'
+import { SlidingTabController } from './SlidingTabController'
+import { SlidingTabs } from './SlidingTabs'
 
 
 
@@ -40,14 +38,17 @@ struct TabsExample {
     'https://m.thepaper.cn/',
     'https://app.people.cn/'
   ]
+  @Local names: Array<string> = [
+    '百度新闻',
+    '澎湃新闻',
+    '人民日报'
+  ]
 
   build() {
     Column(){
-      Divider().height(2)
-      Text("搭配Swiper使用").height(40)
-      Divider().height(2)
       SlidingTabs({
         tabs: this.tabs,
+        names: this.names,
         barMode : "fixed",
         tabController: this.tabController,
         tabStyle:{
