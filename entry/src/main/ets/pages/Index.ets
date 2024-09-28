@@ -12,16 +12,19 @@ import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import {createNWeb, getNWeb} from './preparepage'
 import {createCommonWeb, getCommonWeb} from './common'
+import { displaySync } from '@kit.ArkGraphics2D';
 
 
 
 @Entry
 @Component
 struct TabsExample {
+
   @State currentIndex: number = 0;
   private tabsController: TabsController = new TabsController();
   private webviewController1: webview.WebviewController = new webview.WebviewController();
-
+  private displaySync: displaySync.DisplaySync | undefined = undefined;
+  private frame: number = 1;
   aboutToAppear(): void {
     // 初始化用于注入本地资源的Web组件
     webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
@@ -48,6 +51,7 @@ struct TabsExample {
     .height(50)
     .justifyContent(FlexAlign.Center)
     .onClick(() => {
+      console.log("click start ")
       this.currentIndex = targetIndex;
       this.tabsController.changeIndex(this.currentIndex);
     })
@@ -69,15 +73,15 @@ struct TabsExample {
            NodeContainer(getCommonWeb('https://m.thepaper.cn/'))
              .height('90%')
              .width('100%')
+
          }
          .tabBar(this.TabBuilder('澎湃新闻', 1, $r('app.media.mine2_selected'), $r('app.media.mine2_normal')))
-
-
 
         TabContent() {
           NodeContainer(getCommonWeb('https://app.people.cn/'))
             .height('90%')
             .width('100%')
+
         }
         .tabBar(this.TabBuilder('人民日报', 2, $r('app.media.mine3_selected'), $r('app.media.mine3_normal')))
 
@@ -87,7 +91,6 @@ struct TabsExample {
     .backgroundColor('#f2f3f5')
     .onChange((index: number) => {
       this.currentIndex = index;
-      console.log("1111")
     })
   }
 }

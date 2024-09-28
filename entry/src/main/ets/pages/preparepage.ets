@@ -51,7 +51,7 @@ function WebBuilder(data:Data) {
         //createCommonWeb('https://app.people.cn/');
       })
       .onPageEnd((event) => {
-
+        //console.log("click end ")
       })
     //预编译加资源拦截注入大概花费1100ms
       /*.onControllerAttached(async () => {

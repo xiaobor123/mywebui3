@@ -23,6 +23,10 @@ function WebBuilder(data:Data) {
       .mixedMode(MixedMode.All)
       .width('100%')
       .height('100%')
+      .onPageVisible((event) => {
+        console.log("click end2 ")
+      })
+
 
   }
 }
