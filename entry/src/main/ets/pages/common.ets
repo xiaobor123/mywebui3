@@ -26,6 +26,9 @@ function WebBuilder(data:Data) {
       .onPageVisible((event) => {
         console.log("click end2 ")
       })
+      .onPageBegin(()=>{
+        console.log("onPageBegin")
+      })
 
 
   }
@@ -51,6 +54,7 @@ export class myNodeController extends NodeController {
       this.root = new FrameNode(uiContext);
       this.root.appendChild(this.rootnode.getFrameNode());
       // 返回FrameNode节点
+      console.log("makeNode")
       return this.root;
     }
     // 返回null控制动态组件脱离绑定节点

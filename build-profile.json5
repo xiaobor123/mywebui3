@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\86181\\.ohos\\config\\default_mywebui3_P6n5QCK4HzGg9YSsVDQ-WSSHr-dp2tFWCW2HQOwxOVo=.cer",
-          "storePassword": "0000001B261F2D335AA2D9F53F2B75F5E51A43E7A9391B87E3FC98CB8BD56EE57EE343B68E3B7C8C58CA05",
+          "certpath": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.cer",
+          "storePassword": "0000001BDCA98C3D5FB6558712B2FED1AA209089DB3ABEA32DF39DBC91F1C2D631A4CB912D4D776A9A568D",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B6E8FA77754A93A9E4963DA752F1DB351AFDF9D5AAA88EC04D84308DF2DDA3280A6BCC830E87D29",
-          "profile": "C:\\Users\\86181\\.ohos\\config\\default_mywebui3_P6n5QCK4HzGg9YSsVDQ-WSSHr-dp2tFWCW2HQOwxOVo=.p7b",
+          "keyPassword": "0000001BE6C7438DDBE8E72A9128482BC3C20AF45521B2F3DBD7582909694634F0D5E7261B97A7EAE1A762",
+          "profile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\86181\\.ohos\\config\\default_mywebui3_P6n5QCK4HzGg9YSsVDQ-WSSHr-dp2tFWCW2HQOwxOVo=.p12"
+          "storeFile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p12"
         }
       }
     ],

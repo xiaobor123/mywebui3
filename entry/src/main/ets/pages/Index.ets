@@ -31,10 +31,10 @@ struct TabsExample {
     this.mydata.pushData('https://app.people.cn/')
     //可能是异步的，大约只花费了50ms
     //console.log('create start')
-    createNWeb('https://xxx');
+    createNWeb('https://m.baidu.com');
     createCommonWeb('https://m.baidu.com/');
-    createCommonWeb('https://m.thepaper.cn/');
-    createCommonWeb('https://app.people.cn/');
+    // createCommonWeb('https://m.thepaper.cn/');
+    // createCommonWeb('https://app.people.cn/');
     //console.log('create end')
   }
   @Local tabs: Array<string> = [

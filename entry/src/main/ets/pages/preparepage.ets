@@ -1,6 +1,6 @@
 // 创建NodeController
 // common.ets
-import { UIContext } from '@kit.ArkUI';
+import { UIContext, RenderOptions } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
 import {configs,Config,basicResources,ResourceConfig} from './myjava'
@@ -42,10 +42,12 @@ function WebBuilder(data:Data) {
       .onAppear(() => {
       })
       .onPageBegin((event) => {
-        //此步骤大概花费60ms;
-        for (let url1 of array1) {
-          data.controller.prefetchPage(url1.url)
-        }
+        // 此步骤大概花费60ms;
+        // console.log("before prefetchPage");
+        // for (let url1 of array1) {
+        //   data.controller.prefetchPage(url1.url);
+        // }
+        // console.log("after prefetchPage");
         //
         //createCommonWeb('https://m.thepaper.cn/');
         //createCommonWeb('https://app.people.cn/');
