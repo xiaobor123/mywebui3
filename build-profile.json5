@@ -1,20 +1,6 @@
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.cer",
-          "storePassword": "0000001BDCA98C3D5FB6558712B2FED1AA209089DB3ABEA32DF39DBC91F1C2D631A4CB912D4D776A9A568D",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BE6C7438DDBE8E72A9128482BC3C20AF45521B2F3DBD7582909694634F0D5E7261B97A7EAE1A762",
-          "profile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p12"
-        }
-      }
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",

@@ -1,5 +1,17 @@
 {
   "module": {
+    "requestPermissions":[
+      {
+        "name" : "ohos.permission.INTERNET",
+//        "reason": "$string:reason",
+        "usedScene": {
+          "abilities": [
+            "FormAbility"
+          ],
+          "when":"inuse"
+        }
+      }
+    ],
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -7,15 +19,7 @@
     "deviceTypes": [
       "phone",
       "tablet",
-      "2in1",
-      "tv",
-      "car",
-      "default",
-    ],
-    "requestPermissions": [
-      {
-        "name": "ohos.permission.INTERNET"
-      }
+      "2in1"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,

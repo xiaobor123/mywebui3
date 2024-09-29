@@ -5,9 +5,6 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {
-    "@xqw/sliding-tabs": "^1.0.1"
-  },
-  "devDependencies": {},
-  "dynamicDependencies": {}
+  "dependencies": {}
 }
+

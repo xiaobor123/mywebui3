@@ -3,15 +3,12 @@
 import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
-import {configs,Config,basicResources,ResourceConfig} from './myjava'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 class Data{
-  url: string = '';
+  url: string = 'https://www.example.com';
   controller: WebviewController = new webview.WebviewController();
 }
-const storage = LocalStorage.getShared();
 
 @Builder
 function WebBuilder(data:Data) {
@@ -23,39 +20,30 @@ function WebBuilder(data:Data) {
       .mixedMode(MixedMode.All)
       .width('100%')
       .height('100%')
-      .onPageVisible((event) => {
-        console.log("click end2 ")
-      })
-      .onPageBegin(()=>{
-        console.log("onPageBegin")
-      })
-
-
   }
 }
 
 let wrap = wrapBuilder<Data[]>(WebBuilder);
 
 // 用于控制和反馈对应的NodeContainer上的节点的行为，需要与NodeContainer一起使用
-export class myNodeController extends NodeController {
-  private rootnode: BuilderNode<Data[]> | null = null;
-  private root: FrameNode | null = null;
+export class WebNodeController extends NodeController {
+  private webNode: BuilderNode<Data[]> | null = null;
+  private rootFrameNode: FrameNode | null = null;
   // 必须要重写的方法，用于构建节点数、返回节点挂载在对应NodeContainer中
   // 在对应NodeContainer创建的时候调用、或者通过rebuild方法调用刷新
   makeNode(uiContext: UIContext): FrameNode | null {
-    console.log(' uicontext is undifined : '+ (uiContext === undefined));
-    if (this.rootnode != null) {
-      const parent = this.rootnode.getFrameNode()?.getParent();
+    // console.log(' uicontext is undifined : '+ (uiContext === undefined));
+    if (this.webNode != null) {
+      const parent = this.webNode.getFrameNode()?.getParent();
       if (parent) {
         console.info(JSON.stringify(parent.getInspectorInfo()));
-        parent.removeChild(this.rootnode.getFrameNode());
-        this.root = null;
+        parent.removeChild(this.webNode.getFrameNode());
+        this.rootFrameNode = null;
       }
-      this.root = new FrameNode(uiContext);
-      this.root.appendChild(this.rootnode.getFrameNode());
+      this.rootFrameNode = new FrameNode(uiContext);
+      this.rootFrameNode.appendChild(this.webNode.getFrameNode());
       // 返回FrameNode节点
-      console.log("makeNode")
-      return this.root;
+      return this.rootFrameNode;
     }
     // 返回null控制动态组件脱离绑定节点
     return null;
@@ -77,40 +65,33 @@ export class myNodeController extends NodeController {
 
   // 此函数为自定义函数，可作为初始化函数使用
   // 通过UIContext初始化BuilderNode，再通过BuilderNode中的build接口初始化@Builder中的内容
-  initWeb(url:string, control:WebviewController) {
-    if(this.rootnode != null)
+  initWeb(url:string, uiContext:UIContext, control:WebviewController) {
+    if(this.webNode != null)
     {
       return;
     }
     // 创建节点，需要uiContext
-    const uiContext: UIContext = storage.get<UIContext>("uiContext") as UIContext;
-    if (!uiContext) {
-      return;
-    }
-      this.rootnode = new BuilderNode(uiContext)
-
-
+    this.webNode = new BuilderNode(uiContext)
     // 创建动态Web组件
-    this.rootnode.build(wrap, { url:url, controller:control})
+    this.webNode.build(wrap, { url:url, controller:control })
   }
 }
 // 创建Map保存所需要的NodeController
-let NodeMap:Map<string, myNodeController | undefined> = new Map();
+let NodeMap:Map<string, WebNodeController | undefined> = new Map();
 // 创建Map保存所需要的WebViewController
 let controllerMap:Map<string, WebviewController | undefined> = new Map();
 
 // 初始化需要UIContext 需在Ability获取
-export const createCommonWeb = (url: string) => {
+export const createWebNode = (url: string, uiContext: UIContext) => {
   // 创建NodeController
-  let baseNode = new myNodeController();
+  let baseNode = new WebNodeController();
   let controller = new webview.WebviewController() ;
   // 初始化自定义web组件
-  baseNode.initWeb(url, controller);
+  baseNode.initWeb(url, uiContext, controller);
   controllerMap.set(url, controller)
   NodeMap.set(url, baseNode);
 }
 // 自定义获取NodeController接口
-export const getCommonWeb = (url : string) : myNodeController | undefined => {
+export const getWebNode = (url : string) : WebNodeController | undefined => {
   return NodeMap.get(url);
 }
-

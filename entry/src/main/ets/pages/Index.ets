@@ -1,112 +1,108 @@
-// todo: 搞一个离线渲染的web组件用于加载所有内容
-// 找简单的网页
-//lazyforeach
-// 高负载场景下分针渲染
-//全局自定义组件复用实现
-//多线程优化
-//组件复用
+// Index.ets
+// 导入页面路由模块
+import { router } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { webview } from '@kit.ArkWeb';
-import {createNWeb, getNWeb} from './preparepage'
-import {createCommonWeb, getCommonWeb} from './common'
-import { displaySync } from '@kit.ArkGraphics2D';
-import { SlidingTabController } from './SlidingTabController'
-import { SlidingTabs } from './SlidingTabs'
-import {BasicDataSource,MyDataSource} from './imple_idata'
-
-
-
+import systemDateTime from '@ohos.systemDateTime'
+import { TConfig } from '../entryability/EntryAbility'
+import EntryAbility from '../entryability/EntryAbility'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { HashSet } from '@kit.ArkTS';
+import {createWebNode, getWebNode} from "./common"
+import { window } from '@kit.ArkUI';
 
 @Entry
-@ComponentV2
-struct TabsExample {
-  tabController = new SlidingTabController()
-  private mydata: MyDataSource = new MyDataSource();
-  aboutToAppear(): void {
-    // 初始化用于注入本地资源的Web组件
-    webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://m.thepaper.cn/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://app.people.cn/', true, 2);
-    this.mydata.pushData('https://m.baidu.com/')
-    this.mydata.pushData('https://m.thepaper.cn/')
-    this.mydata.pushData('https://app.people.cn/')
-    //可能是异步的，大约只花费了50ms
-    //console.log('create start')
-    createNWeb('https://m.baidu.com');
-    createCommonWeb('https://m.baidu.com/');
-    // createCommonWeb('https://m.thepaper.cn/');
-    // createCommonWeb('https://app.people.cn/');
-    //console.log('create end')
-  }
-  @Local tabs: Array<string> = [
-    'https://m.baidu.com/',
-    'https://m.thepaper.cn/',
-    'https://app.people.cn/'
-  ]
-  @Local names: Array<[string, Resource]> = [
-    ['百度新闻', $r('app.media.mine_selected')],
-    ['澎湃新闻', $r('app.media.mine2_selected')],
-    ['人民日报', $r('app.media.mine3_selected')]
-  ];
-
-
+@Component
+struct Index {
+  webController: webview.WebviewController = new webview.WebviewController();
+  // delegate: webview.WebDownloadDelegate = new webview.WebDownloadDelegate();
+  webController2: webview.WebviewController = new webview.WebviewController();
+  webController3: webview.WebviewController = new webview.WebviewController();
+  // tabsController: TabsController = new TabsController();
+  // responseWeb: WebResourceResponse = new WebResourceResponse();
+  url: string = TConfig.url;
+  url2: string = TConfig.url2;
+  url3: string = TConfig.url3;
+  jsFiles: HashSet<string> = new HashSet();
+  rep: RegExp = /\.js($|\?)/
   build() {
-    Column(){
-      SlidingTabs({
-        tabs: this.tabs,
-        names: this.names,
-        barMode : "fixed",
-        tabController: this.tabController,
-        tabStyle:{
-          indicatorWidthWrapTab:true,
-          fontColorSelect:Color.Blue
-        },
-        onTabIndicatorBuilder:()=>{
-          this.TabIndicator()
-        },
-        onTabItemBuilder:(tab,index)=>{
-          this.TabItem(tab,index)
-        }
+    Tabs(){
+      TabContent(){
+        Web({ src: this.url, controller: this.webController })
+          .domStorageAccess(true)
+          .fileAccess(true)
+          .imageAccess(true)
+          .onAppear(()=>{
+            hilog.info(0x0001,'testTag', 'Index-Web onAppear');
+            // this.webController.setDownloadDelegate(this.delegate);
+          })
+          .onPageBegin((event) => {
+            // hilog.info(0x0001,'testTag','Index-Web onPageBegin');
+          })
+          .onPageEnd((event) => {
+            // hilog.info(0x0001,'testTag', 'Index-Web onPageEnd');
+            // hilog.info(0x0001,'testTag','EntryCreate to WebPageEnd time: %{public}d ms', systemDateTime.getTime(false)-EntryAbility.EntryCreateTime);
+            // this.webController.prefetchPage(this.url2)
+            // this.jsFiles.forEach((value?: string, key?: string): void => {
+            //   console.log("value:" + value);
+            // })
+            // console.log("length:" + this.jsFiles.length);
+            // let context = getContext(this) as common.UIAbilityContext;
+            // let filesDir = context.filesDir;
+            // console.log("filesDir:" + filesDir);
+            createWebNode(TConfig.url2, EntryAbility.uiContext);
+            createWebNode(TConfig.url3, EntryAbility.uiContext);
+          })
+          .onDisAppear(()=>{
+            hilog.info(0x0001,'testTag', 'Index-Web onDisAppear');
+          })
+          .onDownloadStart((event) => {
+            // if (event) {
+            //   // hilog.info(0x0001,'testTag','%{public}s','onDownloadStart-url:' + event.url);
+            //   // console.log('userAgent:' + event.userAgent)
+            //   // console.log('contentDisposition:' + event.contentDisposition)
+            //   // console.log('contentLength:' + event.contentLength)
+            //   // console.log('mimetype:' + event.mimetype)
+            // }
+          })
+          .onResourceLoad((event) => {
+            // console.log('onResourceLoad-url: ' + event.url);
+            // if (this.rep.test(event.url)) {
+            //   console.log('onResourceLoad-url: ' + event.url);
+            //   this.jsFiles.add(event.url);
+            // }
+          })
+          .onInterceptRequest((event) => {
+            if (event) {
+              // console.log('onInterceptRequest-url:' + event.request.getRequestUrl());
+            }
+            return null;
+          })
+          .onLoadIntercept((event) => {
+            // console.log('onLoadIntercept-url:' + event.data.getRequestUrl());
+            // console.log('isMainFrame:' + event.data.isMainFrame());
+            // console.log('isRedirect:' + event.data.isRedirect());
+            // console.log('isRequestGesture:' + event.data.isRequestGesture());
+            return false;
+          })
+      }
+      .tabBar('baidu')
+      .onWillHide(()=>{
+        // hilog.info(0x0001,'testTag','baidu-Web onWillHide');
+      });
+      TabContent(){
+        NodeContainer(getWebNode(TConfig.url2))
+          .height('100%')
+          .width('100%')
+      }
+      .tabBar('the-paper')
 
-      })
-      Swiper(this.tabController.swiperController){
-        LazyForEach(this.mydata,(item:string)=>{
-          Stack()
-          {
-            NodeContainer(getCommonWeb(item))
-              .height('90%')
-              .width('100%')
-          }
-          .width('100%').height('100%')
-        },(item: string) => item)
-      }.layoutWeight(1)
-      .onGestureSwipe((index,extraInfo)=>{
-        this.tabController.swiperOnGestureSwipe(index,extraInfo)
-      })
-      .onAreaChange((oldValue,newValue)=>{
-        this.tabController.swiperOnAreaChange(oldValue,newValue)
-      })
-      .onAnimationStart((index,targetIndex,extraInfo)=>{
-        this.tabController.swiperOnAnimationStart(index,targetIndex,extraInfo)
-      })
+      TabContent(){
+        NodeContainer(getWebNode(TConfig.url3))
+          .height('100%')
+          .width('100%')
+      }
+      .tabBar('openharmony')
     }
   }
-
-  @Builder
-  TabIndicator(){
-    Stack().width('100%').height('100%')
-      .backgroundColor(Color.Pink).borderRadius(12)
-  }
-
-  @Builder
-  TabItem(tab:[string, Resource],index:number){
-    Column(){
-      Image(tab[1]).width(20).margin({bottom:4})
-      Text(tab[0])
-        .fontColor(this.tabController.selectedTabIndex == index ? Color.Black : Color.Gray)
-        .fontWeight(this.tabController.selectedTabIndex == index ? FontWeight.Medium : FontWeight.Normal)
-        .fontSize(this.tabController.selectedTabIndex == index ? 18 : 16)
-        .animation({ duration: 300 })
-    }
-  }
-
 }
