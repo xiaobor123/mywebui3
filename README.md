@@ -46,10 +46,10 @@ tab内容文字与图片自定义
 | -------------- | ---------------- | ------------ | --------------------- |
 |                |                  |              |                       |
 | tabsController | TabsController   | 是           | tab控制器             |
-| tabsItem       | TabsPage[]       | 是           | 每个tab对应页面的内容 |
+| tabPages       | TabsPage[]       | 是           | 每个tab对应页面的内容 |
 | tabStyle       | TabsStyle        | 否           | tab的样式             |
 | pageBuilder    | Builder          | 否           | 用户指定tab的构建函数 |
-| tabContents    | tabItemContent[] | 是           | tab内容               |
+| tabContents    | tabItemContent[] | 是           | tab组件内容           |
 |                |                  |              |                       |
 |                |                  |              |                       |
 |                |                  |              |                       |
@@ -58,11 +58,11 @@ tab内容文字与图片自定义
 
 ### TabsPage类
 
-| 属性 | 类型   | 是否必须指定 | 说明                 |
-| ---- | ------ | ------------ | -------------------- |
-| type | string | 是           | 页面类型             |
-| url  | string | 否           | 类型为“web”时可指定  |
-| text | string | 否           | 类型为“normal”时显示 |
+| 属性 | 类型        | 是否必须指定 | 说明                 |
+| ---- | ----------- | ------------ | -------------------- |
+| type | TabPageType | 是           | 页面类型             |
+| url  | string      | 否           | 类型为“web”时可指定  |
+| text | string      | 否           | 类型为“normal”时显示 |
 
 
 
