@@ -2,6 +2,40 @@
 
 # fast-tab
 
+## 简介
+
+fast-tab
+
+支持
+
+高性能web组件
+
+tab-page多模式
+
+tab内容文字与图片自定义
+
+支持页面滑动
+
+## 效果展示
+
+### 
+
+
+
+
+
+## 使用说明
+
+### 底部导航
+
+
+
+### 自定义Page构建
+
+
+
+### 高性能Web组件
+
 
 
 ## 接口说明
@@ -24,23 +58,25 @@
 
 ### TabsPage类
 
-### 
-
-| 属性             | 类型   | 是否必须指定 | 说明                                    |
-| ---------------- | ------ | ------------ | --------------------------------------- |
-| type             | string | 是           | 页面类型                                |
-| url              | string | 否           | 类型为“web”时可指定                     |
-| text             | string | 否           | 类型为“normal”时显示                    |
-| type枚举变量说明 |        |              |                                         |
-| "web"            |        |              | 此时将显示url对应的网页                 |
-| "normal"         |        |              | 此时将显示text对应的文字内容            |
-| "custom"         |        |              | 此时将调用用户提供的builder函数构建页面 |
+| 属性 | 类型   | 是否必须指定 | 说明                 |
+| ---- | ------ | ------------ | -------------------- |
+| type | string | 是           | 页面类型             |
+| url  | string | 否           | 类型为“web”时可指定  |
+| text | string | 否           | 类型为“normal”时显示 |
 
 
 
-### tabItemContent
+### TabPageType枚举值
 
-每个tab的内容
+| type枚举变量说明 |                                         |
+| ---------------- | --------------------------------------- |
+| Web              | 此时将显示url对应的网页                 |
+| Normal           | 此时将显示text对应的文字内容            |
+| Custom           | 此时将调用用户提供的builder函数构建页面 |
+
+
+
+### tabItemContent接口
 
 | 属性         | 类型        | 是否必须指定 | 说明             |
 | ------------ | ----------- | ------------ | ---------------- |
@@ -52,9 +88,7 @@
 
 
 
-### TabsStyle
-
-interface
+### TabsStyle接口
 
 | 属性             | 类型          | 是否必须指定 | 说明           |
 | ---------------- | ------------- | ------------ | -------------- |
@@ -70,7 +104,25 @@ interface
 | tabWidth         | Length        | 否           | tab指示器宽度  |
 | tabHeight        | Length        | 否           | tab指示器宽度  |
 | backgroundColor  | ResourceColor | 否           | tab背景颜色    |
-|                  |               |              |                |
+| barPosition      | BarPosition   | 否           | tab bar的位置  |
 
 
 
+## 约束和验证
+
+在下述版本验证通过：
+
+| 开发板 | DevEco Studio | SDK    |
+| ------ | ------------- | ------ |
+| RK3568 | 5.0 Release   | API 12 |
+|        |               |        |
+
+
+
+## 项目结构
+
+
+
+## 开源协议
+
+本项目基于 [Apache License 2.0](https://gitee.com/link?target=https%3A%2F%2Fwww.apache.org%2Flicenses%2FLICENSE-2.0.html) ，请自由地享受和参与开源。
