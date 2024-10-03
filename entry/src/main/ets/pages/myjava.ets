@@ -4,14 +4,24 @@ import { webview } from '@kit.ArkWeb';
 // 定义 Config 接口
 export interface Config {
   url: string;
-  localPath: string;
+  location: string;
   options: webview.CacheOptions
 }
 
 export let configs: Array<Config> = [
   {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/resource/js/usermonitor_88a158c.js?v=1.2',
-    localPath: 'usermonitor_88a158c.js',
+    url: 'https://www.openharmony.cn/_nuxt/0e255f6.js',
+    location: '0e255f6.js',
+    options: {
+      responseHeaders: [
+        { headerKey: 'JD-Tag', headerValue: 'xxx' },
+        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
+      ]
+    },
+  },
+  {
+    url: 'https://www.openharmony.cn/_nuxt/137ca0b.js',
+    location: '137ca0b.js',
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
@@ -20,112 +30,42 @@ export let configs: Array<Config> = [
     }
   },
   {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/js/jquery-1.8.3.min_a6ffa58.js',
-    localPath: 'jquery-1.8.3.min_a6ffa58.js',
+    url: "https://www.openharmony.cn/_nuxt/5ff68ad.js",
+    location: "5ff68ad.js",
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Wed, 11 Sep 2024 13:05:54 GMT' }
+        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
       ]
     }
   },
   {
-    url: 'https://efe-h2.cdn.bcebos.com/cliresource/ubc-report-sdk/2.0.8/ubc-web-sdk.umd.min.js',
-    localPath: 'ubc-web-sdk.umd.min.js',
+    url: "https://www.openharmony.cn/_nuxt/b16c65c.js",
+    location: "b16c65c.js",
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Wed, 22 Nov 2017 02:56:56 GMT' }
+        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
       ]
     }
   },
   {
-    url: 'https://gss0.bdstatic.com/5foIcy0a2gI2n2jgoY3K/static/fisp_static/wza/aria.js?appid=c890648bf4dd00d05eb9751dd0548c30',
-    localPath: 'aria.js',
+    url :"https://www.openharmony.cn/_nuxt/9383c4f.js",
+    location: "9383c4f.js",
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Fri, 15 Dec 2023 09:03:38 GMT' }
+        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
       ]
     }
   },
   {
-    url: 'https://news-bos.cdn.bcebos.com/mvideo/pcconf_2019.js?1726819150345',
-    localPath: 'pcconf_2019.js',
+    url: "https://www.openharmony.cn/_nuxt/8ca6808.js",
+    location: "8ca6808.js",
     options: {
       responseHeaders: [
         { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Tue, 27 Aug 2024 12:08:36 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/lib/mod_b818356.js',
-    localPath: 'mod_b818356.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/framework_static_include/framework_static_include_aa59e0d.js',
-    localPath: 'framework_static_include_aa59e0d.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/focustop/focustop_b924ecb.js',
-    localPath: 'focustop_b924ecb.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/module_static_include/module_static_include_5d6af88.js',
-    localPath: 'module_static_include_5d6af88.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://fex.bdstatic.com/hunter/alog/alog.min.js?v=-19987-19987',
-    localPath: 'alog.min.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://hm.baidu.com/h.js?e9e114d958ea263de46e080563e254c4',
-    localPath: 'h.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
-      ]
-    }
-  },
-  {
-    url: 'https://fex.bdstatic.com/hunter/alog/dp.min.js?v=-19987-19987',
-    localPath: 'dp.min.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Mon, 13 Mar 2023 10:42:57 GMT' }
+        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
       ]
     }
   },
@@ -143,81 +83,113 @@ export interface ResourceConfig {
 
 export const basicResources: Array<ResourceConfig> = [
   {
-    localPath: "log-news.png",
+    localPath: "logo.dcf95b3.png",
     urlList: [
-      'https://news-bos.cdn.bcebos.com/mvideo/log-news.png'
+      'https://www.openharmony.cn/_nuxt/img/logo.dcf95b3.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "newErweima_9fa03e0.png",
+    localPath: "search.2585098.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/newErweima_9fa03e0.png'
+      'https://www.openharmony.cn/_nuxt/img/search.2585098.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "report_3c9a61f.png",
+    localPath: "button-icon-gray.6deb791.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/report_3c9a61f.png'
+      'https://www.openharmony.cn/_nuxt/img/button-icon-gray.6deb791.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "roumer_033b02b.png",
+    localPath: "bgcPhone.a1b7568.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/roumer_033b02b.png'
+      'https://www.openharmony.cn/_nuxt/img/bgcPhone.a1b7568.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "accessibility_7ba1339.png",
+    localPath: "%E5%9F%8E%E5%B8%82%E6%B4%BB%E5%8A%A80928/%E9%A6%96%E9%A1%B5%E7%A7%BB%E5%8A%A8banner.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/accessibility_7ba1339.png'
+      'https://images.openharmony.cn/%E6%B4%BB%E5%8A%A8/%E5%9F%8E%E5%B8%82%E6%B4%BB%E5%8A%A80928/%E9%A6%96%E9%A1%B5%E7%A7%BB%E5%8A%A8banner.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "arrow-down_88161d2.png",
+    localPath: "4.1releas%E6%89%8B%E6%9C%BA.jpg",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/arrow-down_88161d2.png'
+      'https://images.openharmony.cn/%E9%A6%96%E9%A1%B5/banner/20240411/4.1releas%E6%89%8B%E6%9C%BA.jpg'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "bg_19da_xinjingjie_029074f.png",
+    localPath: "%E5%88%9B%E6%96%B0%E8%B5%9B2023/20230831/%E4%B8%89%E6%96%B9%E5%BA%93%E7%A7%BB%E5%8A%A8%E7%AB%AF.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/bg_19da_xinjingjie_029074f.png'
+      'https://images.openharmony.cn/%E6%B4%BB%E5%8A%A8/%E5%88%9B%E6%96%B0%E8%B5%9B2023/20230831/%E4%B8%89%E6%96%B9%E5%BA%93%E7%A7%BB%E5%8A%A8%E7%AB%AF.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "icon-carousel_b4b1d29.png",
+    localPath: "%E5%88%9B%E6%96%B0%E8%B5%9B%E6%B4%BB%E5%8A%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/icon-carousel_b4b1d29.png'
+      'https://images.openharmony.cn/%E6%B4%BB%E5%8A%A8/%E5%88%9B%E6%96%B0%E8%B5%9B2023/20230831/%E5%88%9B%E6%96%B0%E8%B5%9B%E6%B4%BB%E5%8A%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "icon-dot-2x_fe00451.png",
+    localPath: "logo.0456c15.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/news/img/carousel/icon-dot-2x_fe00451.png'
+      'https://www.openharmony.cn/_nuxt/img/logo.0456c15.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []
   },
   {
-    localPath: "icon-merged_b8bc211.png",
+    localPath: "btn-bilibili.02de57b.png",
     urlList: [
-      'https://mbdp02.bdstatic.com/pcnews/static/fisp_static/common/img/sidebar/icon-merged_b8bc211.png'
+      'https://www.openharmony.cn/_nuxt/img/btn-bilibili.02de57b.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "core-card-item1.5977b65.png",
+    urlList: [
+      'https://www.openharmony.cn/_nuxt/img/core-card-item1.5977b65.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "core-card-item2.a72a0d1.png",
+    urlList: [
+      'https://www.openharmony.cn/_nuxt/img/core-card-item2.a72a0d1.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "core-card-item3.8984f01.png",
+    urlList: [
+      'https://www.openharmony.cn/_nuxt/img/core-card-item3.8984f01.png'
+    ],
+    type: webview.OfflineResourceType.IMAGE,
+    responseHeaders: []
+  },
+  {
+    localPath: "core-card-item4.057c5ac.png",
+    urlList: [
+      'https://www.openharmony.cn/_nuxt/img/core-card-item4.057c5ac.png'
     ],
     type: webview.OfflineResourceType.IMAGE,
     responseHeaders: []

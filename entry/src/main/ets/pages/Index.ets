@@ -5,9 +5,9 @@
 //全局自定义组件复用实现
 //多线程优化
 //组件复用
+
 import { webview } from '@kit.ArkWeb';
-import {createNWeb, getNWeb} from './preparepage'
-import {createCommonWeb, getCommonWeb} from './common'
+import {createCommonWeb, getCommonWeb,myNodeController} from './common'
 import { displaySync } from '@kit.ArkGraphics2D';
 import { SlidingTabController } from './SlidingTabController'
 import { SlidingTabs } from './SlidingTabs'
@@ -15,37 +15,23 @@ import {BasicDataSource,MyDataSource} from './imple_idata'
 
 
 
+// export let webviewController2: webview.WebviewController = new webview.WebviewController();
+// export let webviewController3: webview.WebviewController = new webview.WebviewController();
+export let mydata: MyDataSource = new MyDataSource();
 
 @Entry
 @ComponentV2
 struct TabsExample {
   tabController = new SlidingTabController()
-  private mydata: MyDataSource = new MyDataSource();
-  aboutToAppear(): void {
-    // 初始化用于注入本地资源的Web组件
-    webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://m.thepaper.cn/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://app.people.cn/', true, 2);
-    this.mydata.pushData('https://m.baidu.com/')
-    this.mydata.pushData('https://m.thepaper.cn/')
-    this.mydata.pushData('https://app.people.cn/')
-    //可能是异步的，大约只花费了50ms
-    //console.log('create start')
-    createNWeb('https://xxx');
-    createCommonWeb('https://m.baidu.com/');
-    createCommonWeb('https://m.thepaper.cn/');
-    createCommonWeb('https://app.people.cn/');
-    //console.log('create end')
-  }
   @Local tabs: Array<string> = [
     'https://m.baidu.com/',
     'https://m.thepaper.cn/',
-    'https://app.people.cn/'
+    'https://www.openharmony.cn/'
   ]
   @Local names: Array<[string, Resource]> = [
     ['百度新闻', $r('app.media.mine_selected')],
     ['澎湃新闻', $r('app.media.mine2_selected')],
-    ['人民日报', $r('app.media.mine3_selected')]
+    ['鸿蒙', $r('app.media.mine3_selected')]
   ];
 
 
@@ -69,12 +55,15 @@ struct TabsExample {
 
       })
       Swiper(this.tabController.swiperController){
-        LazyForEach(this.mydata,(item:string)=>{
+        NodeContainer(getCommonWeb('https://m.baidu.com/'))
+          .height('90%')
+          .width('100%')
+        LazyForEach(mydata,(item:myNodeController | undefined)=>{
           Stack()
           {
-            NodeContainer(getCommonWeb(item))
-              .height('90%')
-              .width('100%')
+              NodeContainer(item)
+                .height('90%')
+                .width('100%')
           }
           .width('100%').height('100%')
         },(item: string) => item)
@@ -88,6 +77,8 @@ struct TabsExample {
       .onAnimationStart((index,targetIndex,extraInfo)=>{
         this.tabController.swiperOnAnimationStart(index,targetIndex,extraInfo)
       })
+      // .indicator(false)
+
     }
   }
 

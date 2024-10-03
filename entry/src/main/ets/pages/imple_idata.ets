@@ -1,13 +1,14 @@
 // Basic implementation of IDataSource to handle data listener
+import {myNodeController} from './common'
 export class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = [];
-  private originDataArray: string[] = [];
+  private originDataArray: Array< myNodeController | undefined> = [];
 
   public totalCount(): number {
     return 0;
   }
 
-  public getData(index: number): string {
+  public getData(index: number): myNodeController | undefined {
     return this.originDataArray[index];
   }
 
@@ -65,22 +66,22 @@ export class BasicDataSource implements IDataSource {
 }
 
 export class MyDataSource extends BasicDataSource {
-  private dataArray: string[] = [];
+  private dataArray: Array< myNodeController | undefined> = [];
 
   public totalCount(): number {
     return this.dataArray.length;
   }
 
-  public getData(index: number): string {
+  public getData(index: number): myNodeController | undefined {
     return this.dataArray[index];
   }
 
-  public addData(index: number, data: string): void {
+  public addData(index: number, data: myNodeController | undefined): void {
     this.dataArray.splice(index, 0, data);
     this.notifyDataAdd(index);
   }
 
-  public pushData(data: string): void {
+  public pushData(data: myNodeController | undefined): void {
     this.dataArray.push(data);
     this.notifyDataAdd(this.dataArray.length - 1);
   }
