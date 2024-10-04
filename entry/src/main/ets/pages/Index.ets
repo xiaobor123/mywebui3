@@ -13,16 +13,35 @@ import { SlidingTabController } from './SlidingTabController'
 import { SlidingTabs } from './SlidingTabs'
 import {BasicDataSource,MyDataSource} from './imple_idata'
 
-
-
 // export let webviewController2: webview.WebviewController = new webview.WebviewController();
 // export let webviewController3: webview.WebviewController = new webview.WebviewController();
 export let mydata: MyDataSource = new MyDataSource();
+export let  vis: Visibility =Visibility.Visible;
+interface CommonConstantsType {
+  SKELETON_ANIMATION:  AnimateParam;
+  HALF_OPACITY: number;
+}
 
+const animationParams: AnimateParam = {
+  duration: 1000,             // 动画持续时间为2秒
+  tempo: 1.2,                // 使用默认速度
+  curve: Curve.EaseOut,      // 使用ease-out曲线
+  delay: 0,                  // 无延迟
+  iterations: 3,            // 无限次播放，循环播放
+  playMode: PlayMode.Normal, // 正常播放模式
+};
+
+const CommonConstants: CommonConstantsType = {
+  SKELETON_ANIMATION: animationParams,
+  HALF_OPACITY: 0,
+};
 @Entry
 @ComponentV2
 struct TabsExample {
   tabController = new SlidingTabController()
+  @Local isSwiperReady: boolean = false;
+  @Local simpleList: Array<number> = [1, 2, 3, 4, 5];
+  @Local listOpacity:number =0.7;
   @Local tabs: Array<string> = [
     'https://m.baidu.com/',
     'https://m.thepaper.cn/',
@@ -33,54 +52,94 @@ struct TabsExample {
     ['澎湃新闻', $r('app.media.mine2_selected')],
     ['鸿蒙', $r('app.media.mine3_selected')]
   ];
-
+  startAnimation(): void {
+    animateTo(CommonConstants.SKELETON_ANIMATION, () => {
+      this.listOpacity = CommonConstants.HALF_OPACITY;
+    });
+  }
 
   build() {
-    Column(){
+    Column() {
       SlidingTabs({
         tabs: this.tabs,
         names: this.names,
-        barMode : "fixed",
+        barMode: "fixed",
         tabController: this.tabController,
-        tabStyle:{
-          indicatorWidthWrapTab:true,
-          fontColorSelect:Color.Blue
+        tabStyle: {
+          indicatorWidthWrapTab: true,
+          fontColorSelect: Color.Blue
         },
-        onTabIndicatorBuilder:()=>{
+        onTabIndicatorBuilder: () => {
           this.TabIndicator()
         },
-        onTabItemBuilder:(tab,index)=>{
-          this.TabItem(tab,index)
+        onTabItemBuilder: (tab, index) => {
+          this.TabItem(tab, index)
         }
 
       })
-      Swiper(this.tabController.swiperController){
-        NodeContainer(getCommonWeb('https://m.baidu.com/'))
-          .height('90%')
-          .width('100%')
-        LazyForEach(mydata,(item:myNodeController | undefined)=>{
-          Stack()
-          {
+        Swiper(this.tabController.swiperController) {
+          Stack() {
+            NodeContainer(getCommonWeb('https://m.baidu.com/'))
+              .height('100%')
+              .width('100%')
+
+
+
+            // Column() {
+            //   ForEach(this.simpleList, (item: number) => {
+            //     ArticleSkeletonView()
+            //       .margin({ top: 20 })
+            //   }, (item: number) => item.toString())
+            // }
+            // .width('100%')
+            // .opacity(this.listOpacity)
+            // .onAppear(() => {
+            //   this.startAnimation();
+            // })
+
+          }
+
+          LazyForEach(mydata, (item: myNodeController | undefined) => {
+            Stack() {
               NodeContainer(item)
                 .height('90%')
                 .width('100%')
-          }
-          .width('100%').height('100%')
-        },(item: string) => item)
-      }.layoutWeight(1)
-      .onGestureSwipe((index,extraInfo)=>{
-        this.tabController.swiperOnGestureSwipe(index,extraInfo)
-      })
-      .onAreaChange((oldValue,newValue)=>{
-        this.tabController.swiperOnAreaChange(oldValue,newValue)
-      })
-      .onAnimationStart((index,targetIndex,extraInfo)=>{
-        this.tabController.swiperOnAnimationStart(index,targetIndex,extraInfo)
-      })
+
+
+                // Column() {
+                //   ForEach(this.simpleList, (item: number) => {
+                //     ArticleSkeletonView()
+                //       .margin({ top: 20 })
+                //   }, (item: number) => item.toString())
+                // }
+                // .width('100%')
+                // .opacity(this.listOpacity)
+                // .onAppear(() => {
+                //   this.startAnimation();
+                // })
+
+            }
+            .width('100%').height('100%')
+          }, (item: string) => item)
+        }.layoutWeight(1)
+        .onGestureSwipe((index, extraInfo) => {
+          this.tabController.swiperOnGestureSwipe(index, extraInfo)
+        })
+        .onAreaChange((oldValue, newValue) => {
+          this.tabController.swiperOnAreaChange(oldValue, newValue)
+        })
+        .onAnimationStart((index, targetIndex, extraInfo) => {
+          this.tabController.swiperOnAnimationStart(index, targetIndex, extraInfo)
+        })
+
+      }
+
+
+
       // .indicator(false)
 
     }
-  }
+
 
   @Builder
   TabIndicator(){
@@ -99,5 +158,38 @@ struct TabsExample {
         .animation({ duration: 300 })
     }
   }
+}
+@Component
+struct ArticleSkeletonView {
+  build() {
+    Row() {
+      Column() {
+        textArea(80, 80)
+      }
+      .margin({ right: 20 })
 
+      Column() {
+        textArea('60%', 20)
+        textArea('50%', 20)
+      }
+      .alignItems(HorizontalAlign.Start)
+      .justifyContent(FlexAlign.SpaceAround)
+      .height('100%')
+    }
+    .padding(20)
+    .borderRadius(12)
+    .backgroundColor('#FFECECEC')
+    .height(120)
+    .width('100%')
+    .justifyContent(FlexAlign.SpaceBetween)
+  }
+}
+
+
+@Builder
+function textArea(width: number | Resource | string = '100%', height: number | Resource | string = '100%') {
+  Row()
+    .width(width)
+    .height(height)
+    .backgroundColor('#FFF2F3F4')
 }

@@ -13,13 +13,13 @@ import{mydata} from './Index'
 export let isload1:number = 0
 export let isload2:number = 0
 
-
 class Data{
   url: string = '';
   controller: WebviewController = new webview.WebviewController();
 }
 let mybusinessNode2: myNodeController | undefined = undefined
 let mybusinessNode3: myNodeController | undefined = undefined
+
 @Builder
 function WebBuilder(data:Data) {
   Column() {
@@ -27,59 +27,65 @@ function WebBuilder(data:Data) {
       .domStorageAccess(true)
       .fileAccess(true)
       .imageAccess(true)
+      .onAppear(()=>{
+        if(data.url != 'https://m.baidu.com/') {
+          webview.WebviewController.prepareForPageLoad(data.url, true, 2);
+        }
+      })
       .onPageVisible((event) => {
         console.log("Page visible "+data.url)
-      })
-      .onPageBegin((event) => {
-        console.log("Page begin "+data.url)
         if(data.url == 'https://m.baidu.com/') {
           data.controller.prefetchPage('https://www.openharmony.cn/')
         }
-        if(data.url === 'https://m.baidu.com/'&&isload1 ==0){
+        if(data.url == 'https://m.baidu.com/'&&isload1 ==0){
           isload1 = isload1+1
           mybusinessNode2=createCommonWeb('https://m.thepaper.cn/',uiContext1,data.controller);
           mydata.pushData(mybusinessNode2)
         }
       })
-      .onPageEnd((event) => {
-        console.log("Page end "+data.url)
-        if(data.url === 'https://m.thepaper.cn/'&&isload2 ==0) {
+      .onPageBegin((event) => {
+        console.log("Page begin "+data.url)
+
+        if(data.url == 'https://m.thepaper.cn/'&&isload2 ==0) {
           isload2 = isload2+1
           mybusinessNode3=createCommonWeb('https://www.openharmony.cn/',uiContext1,data.controller);
           mydata.pushData(mybusinessNode3)
         }
       })
-      .onControllerAttached(async () => {
-        if(data.url == 'https://m.baidu.com/'){
-            //taskPoolExecute(data.controller)
-          //taskPoolExecute(data.controller)
-
-          // let array2: Array<Config> = configs
-          //
-          // for (let config of array2) {
-          //   let content = await getContext().resourceManager.getRawFileContentSync(config.location);
-          //   try {
-          //     data.controller.precompileJavaScript(config.url, content, config.options)
-          //       .then((errCode: number) => {
-          //         console.log('precompile successfully!' );
-          //       }).catch((errCode: number) => {
-          //       console.error('precompile failed.' + errCode);
-          //     })
-          //   } catch (err) {
-          //     console.error('precompile failed!.' + err.code + err.message);
-          //   }
-          // }
-          //
-          // try {
-          //   data.controller.injectOfflineResources(await getData ());
-          // } catch (err) {
-          //   console.error("error: " + err.code + " " + err.message);
-          // }
-        }
+      .onPageEnd((event) => {
+        console.log("Page end "+data.url)
+      })
+      // .onControllerAttached(async () => {
+      //   if(data.url == 'https://m.baidu.com/'){
+      //       //taskPoolExecute(data.controller)
+      //     //taskPoolExecute(data.controller)
+      //
+      //     let array2: Array<Config> = configs
+      //
+      //     for (let config of array2) {
+      //       let content = await getContext().resourceManager.getRawFileContentSync(config.location);
+      //       try {
+      //         data.controller.precompileJavaScript(config.url, content, config.options)
+      //           .then((errCode: number) => {
+      //             console.log('precompile successfully!' );
+      //           }).catch((errCode: number) => {
+      //           console.error('precompile failed.' + errCode);
+      //         })
+      //       } catch (err) {
+      //         console.error('precompile failed!.' + err.code + err.message);
+      //       }
+      //     }
+      //
+      //     try {
+      //       data.controller.injectOfflineResources(await getData ());
+      //     } catch (err) {
+      //       console.error("error: " + err.code + " " + err.message);
+      //     }
+      //   }
 
         //离线资源免拦截
 
-      })
+      // })
 
   }
 }

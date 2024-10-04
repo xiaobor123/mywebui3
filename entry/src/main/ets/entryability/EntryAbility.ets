@@ -17,8 +17,6 @@ export default class EntryAbility extends UIAbility {
     // 初始化 Web 引擎s
     webview.WebviewController.initializeWebEngine();
     webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://m.thepaper.cn/', true, 2);
-    webview.WebviewController.prepareForPageLoad('https://www.openharmony.cn/', true, 2);
 
     // 将网址替换为百度，并进行预连接
     // 存储要传递的参数
