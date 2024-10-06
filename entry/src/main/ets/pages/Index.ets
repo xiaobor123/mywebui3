@@ -1,9 +1,12 @@
-import {getCommonWeb,myNodeController} from './WebRendering'
+import {getCommonWeb,myNodeController,createCommonWeb} from './WebRendering'
 import { SlidingTabController } from './SlidingTabController'
 import { SlidingTabs } from './SlidingTabs'
 import {MyDataSource} from './imple_idata'
+import { webview } from '@kit.ArkWeb';
+
 
 export let mydata: MyDataSource = new MyDataSource();
+export let uicontext:UIContext
 @Entry
 @ComponentV2
 struct TabsExample {
@@ -18,7 +21,12 @@ struct TabsExample {
     ['澎湃新闻', $r('app.media.mine2_selected')],
     ['鸿蒙', $r('app.media.mine3_selected')]
   ];
-
+  @Local webviewController1: webview.WebviewController = new webview.WebviewController();
+  aboutToAppear(): void {
+    webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
+    uicontext=this.getUIContext()
+    createCommonWeb('https://m.baidu.com/',this.getUIContext(),this.webviewController1);
+  }
   build() {
     Column() {
       SlidingTabs({

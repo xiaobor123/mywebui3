@@ -4,10 +4,9 @@ import taskpool from '@ohos.taskpool';
 import { UIContext } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
-import {webviewController1,uiContext1} from '../entryability/EntryAbility'
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import {configs,Config,basicResources,ResourceConfig} from './myjava'
-import{mydata} from './Index'
+import{mydata, uicontext} from './Index'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 export let isload1:number = 0
@@ -39,7 +38,7 @@ function WebBuilder(data:createWebData) {
         }
         if(data.url == 'https://m.baidu.com/'&&isload1 ==0){
           isload1 = isload1+1
-          mybusinessNode2=createCommonWeb('https://m.thepaper.cn/',uiContext1,data.controller);
+          mybusinessNode2=createCommonWeb('https://m.thepaper.cn/',uicontext,data.controller);
           mydata.pushData(mybusinessNode2)
         }
       })
@@ -47,7 +46,7 @@ function WebBuilder(data:createWebData) {
         console.log("Page begin "+data.url)
         if(data.url == 'https://m.thepaper.cn/'&&isload2 ==0) {
           isload2 = isload2+1
-          mybusinessNode3=createCommonWeb('https://www.openharmony.cn/',uiContext1,data.controller);
+          mybusinessNode3=createCommonWeb('https://www.openharmony.cn/',uicontext,data.controller);
           mydata.pushData(mybusinessNode3)
         }
       })
