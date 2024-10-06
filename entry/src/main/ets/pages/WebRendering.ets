@@ -13,7 +13,7 @@ import{mydata} from './Index'
 export let isload1:number = 0
 export let isload2:number = 0
 
-class Data{
+class createWebData{
   url: string = '';
   controller: WebviewController = new webview.WebviewController();
 }
@@ -21,7 +21,7 @@ let mybusinessNode2: myNodeController | undefined = undefined
 let mybusinessNode3: myNodeController | undefined = undefined
 
 @Builder
-function WebBuilder(data:Data) {
+function WebBuilder(data:createWebData) {
   Column() {
     Web({ src: data.url, controller: data.controller })
       .domStorageAccess(true)
@@ -45,7 +45,6 @@ function WebBuilder(data:Data) {
       })
       .onPageBegin((event) => {
         console.log("Page begin "+data.url)
-
         if(data.url == 'https://m.thepaper.cn/'&&isload2 ==0) {
           isload2 = isload2+1
           mybusinessNode3=createCommonWeb('https://www.openharmony.cn/',uiContext1,data.controller);
@@ -55,37 +54,37 @@ function WebBuilder(data:Data) {
       .onPageEnd((event) => {
         console.log("Page end "+data.url)
       })
-      // .onControllerAttached(async () => {
-      //   if(data.url == 'https://m.baidu.com/'){
-      //       //taskPoolExecute(data.controller)
-      //     //taskPoolExecute(data.controller)
-      //
-      //     let array2: Array<Config> = configs
-      //
-      //     for (let config of array2) {
-      //       let content = await getContext().resourceManager.getRawFileContentSync(config.location);
-      //       try {
-      //         data.controller.precompileJavaScript(config.url, content, config.options)
-      //           .then((errCode: number) => {
-      //             console.log('precompile successfully!' );
-      //           }).catch((errCode: number) => {
-      //           console.error('precompile failed.' + errCode);
-      //         })
-      //       } catch (err) {
-      //         console.error('precompile failed!.' + err.code + err.message);
-      //       }
-      //     }
-      //
-      //     try {
-      //       data.controller.injectOfflineResources(await getData ());
-      //     } catch (err) {
-      //       console.error("error: " + err.code + " " + err.message);
-      //     }
-      //   }
+    // .onControllerAttached(async () => {
+    //   if(data.url == 'https://m.baidu.com/'){
+    //       //taskPoolExecute(data.controller)
+    //     //taskPoolExecute(data.controller)
+    //
+    //     let array2: Array<Config> = configs
+    //
+    //     for (let config of array2) {
+    //       let content = await getContext().resourceManager.getRawFileContentSync(config.location);
+    //       try {
+    //         data.controller.precompileJavaScript(config.url, content, config.options)
+    //           .then((errCode: number) => {
+    //             console.log('precompile successfully!' );
+    //           }).catch((errCode: number) => {
+    //           console.error('precompile failed.' + errCode);
+    //         })
+    //       } catch (err) {
+    //         console.error('precompile failed!.' + err.code + err.message);
+    //       }
+    //     }
+    //
+    //     try {
+    //       data.controller.injectOfflineResources(await getData ());
+    //     } catch (err) {
+    //       console.error("error: " + err.code + " " + err.message);
+    //     }
+    //   }
 
-        //离线资源免拦截
+    //离线资源免拦截
 
-      // })
+    // })
 
   }
 }
@@ -114,11 +113,11 @@ function WebBuilder(data:Data) {
 //   return [];
 // }
 
-let wrap = wrapBuilder<Data[]>(WebBuilder);
+let wrap = wrapBuilder<createWebData[]>(WebBuilder);
 
 // 用于控制和反馈对应的NodeContainer上的节点的行为，需要与NodeContainer一起使用
 export class myNodeController extends NodeController {
-  private rootnode: BuilderNode<Data[]> | null = null;
+  private rootnode: BuilderNode<createWebData[]> | null = null;
   private root: FrameNode | null = null;
   // 必须要重写的方法，用于构建节点数、返回节点挂载在对应NodeContainer中
   // 在对应NodeContainer创建的时候调用、或者通过rebuild方法调用刷新
@@ -164,7 +163,7 @@ export class myNodeController extends NodeController {
     if (!uiContext) {
       return;
     }
-      this.rootnode = new BuilderNode(uiContext)
+    this.rootnode = new BuilderNode(uiContext)
 
 
     // 创建动态Web组件

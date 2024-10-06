@@ -3,7 +3,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import {mydata} from '../pages/Index'
-import {createCommonWeb,myNodeController} from '../pages/common'
+import {createCommonWeb,myNodeController} from '../pages/WebRendering'
 
 
 export let uiContext1: UIContext
