@@ -1,6 +1,6 @@
 
 import { webview } from '@kit.ArkWeb';
-import {TabsExample, tabPage, tabItemContent, TabPageType} from 'supfast'
+import {WebTab, tabPage, tabItemContent, TabPageType} from 'supfast'
 
 
 class newI extends tabPage{
@@ -25,12 +25,12 @@ struct Index {
 
   build() {
     Column(){
-      TabsExample({
+      WebTab({
         tabsController:this.tabsController,
         tabPages:[
           new tabPage(TabPageType.Web,"https://m.baidu.com"),
-          new tabPage(TabPageType.Web,"https://app.people.cn"),
-          new tabPage(TabPageType.Web,"https://news.baidu.com")
+          new tabPage(TabPageType.Web,"https://m.thepaper.cn/"),
+          new tabPage(TabPageType.Web,"https://www.openharmony.cn/")
         ],
         tabContents: [
           {normalText:"hi"},
@@ -38,11 +38,10 @@ struct Index {
           {normalText:"gg",normalImg:$r('app.media.mine2_selected'),selectedImg:$r('app.media.mine2_normal')}
         ],
         tabStyle:{
-          imgSize: {width:30,height:30},
-          barHeight: 60,
-          //fontWeightSelect: FontWeight.Bold,
+          imgSize: {width:20,height:20},
+          barHeight: 30,
           fontWeight: FontWeight.Lighter,
-          barPosition: BarPosition.End
+          barPosition: BarPosition.Start
 
         },
         pageBuilder: this.xxx

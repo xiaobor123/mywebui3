@@ -17,10 +17,11 @@ import { beforeEach } from '@ohos/hypium';
 
 @Builder function CustomBuilder() :void{}
 @ComponentV2
-export struct TabsExample {
+export struct WebTab {
   @Local currentIndex: number = 0;
   @Local webUrls: string[] = []
   @Param tabsController: TabsController = new TabsController()
+  @Local swiperController: SwiperController = new SwiperController()
   @Param webList: string[] = []
   @Param tabStyle: TabStyle = {}
   @Param tabPages: tabPage[] = []
@@ -43,11 +44,12 @@ export struct TabsExample {
         }
 
       }
-      .width('100%')
-      .height(30)
+      .width(50)
+      .height('100%')
       .justifyContent(FlexAlign.Center)
       .onClick(() => {
         this.tabsController.changeIndex(targetIndex);
+        this.swiperController.changeIndex(targetIndex)
         this.currentIndex = targetIndex;
 
       })
@@ -67,45 +69,67 @@ export struct TabsExample {
 
   }
   build() {
+      Column(){
 
-      Tabs({ barPosition: this.tabStyle.barPosition, controller: this.tabsController })
-      {
-        LazyForEach(this.mydata, (item: tabPage, index) => {
-          if (item.type == TabPageType.Web) {
-            TabContent() {
+
+        Swiper(this.swiperController){
+          LazyForEach(this.mydata, (item: tabPage, index) => {
+            if (item.type == TabPageType.Web) {
               NodeContainer(getCommonWeb(item.url))
                 .height('90%')
                 .width('100%')
-            }.width('100%')
-            .height('100%')
-            .tabBar(this.TabBuilder(this.tabContents[index], index))
-          } else if (item.type == TabPageType.Normal) {
-            TabContent() {
+            } else if (item.type == TabPageType.Normal) {
               Text(item.text)
-            }.width('100%')
-            .height('100%')
-            .tabBar(this.TabBuilder(this.tabContents[index], index))
-          } else if (item.type == TabPageType.Custom){
-            TabContent() {
+            } else if (item.type == TabPageType.Custom){
               this.pageBuilder(item, index)
-            }.width('100%')
-            .height('100%')
-            .tabBar(this.TabBuilder(this.tabContents[index], index))
-          }
+            }
 
+          })
+        }
+        .onChange((index: number) => {
+          this.currentIndex = index;
         })
+
+        .onAnimationStart((index,targetIndex,extraInfo)=>{
+
+          this.currentIndex = targetIndex
+        })
+        .height('90%')
+
+        Stack(){
+          Tabs({ barPosition: this.tabStyle.barPosition, controller: this.tabsController })
+            .height(60)
+            .backgroundColor(this.tabStyle.backgroundColor ?? '#f2f3f5')
+            .onAnimationStart((index: number, targetIndex: number, event: TabsAnimationEvent) => {
+              this.currentIndex = targetIndex
+              // let targetIndexInfo = this.getTabItemCurViewInfo(targetIndex)
+              // this.startAnimateTo(targetIndexInfo.indicatorLeft, targetIndexInfo.indicatorWidth)
+            })
+
+            .onChange((index: number) => {
+              this.currentIndex = index;
+            })
+
+
+          Row(){
+            ForEach(this.tabContents,(item: tabItemContent,index)=>{
+              ListItem(){
+                this.TabBuilder(item,index)
+              }.height(60)
+
+            })
+          }
+          .alignItems(VerticalAlign.Center)
+          .justifyContent(FlexAlign.SpaceAround)
+          .height(60)
+          .width('100%')
+        }
+
+
       }
-      .barWidth(this.tabStyle.barWidth ?? '100%')
-      .barHeight(this.tabStyle.barHeight ?? 50)
-      .backgroundColor(this.tabStyle.backgroundColor ?? '#f2f3f5')
-      .onAnimationStart((index: number, targetIndex: number, event: TabsAnimationEvent) => {
-        this.currentIndex = targetIndex
-        // let targetIndexInfo = this.getTabItemCurViewInfo(targetIndex)
-        // this.startAnimateTo(targetIndexInfo.indicatorLeft, targetIndexInfo.indicatorWidth)
-      })
-      .onChange((index: number) => {
-        this.currentIndex = index;
-      })
+      .reverse(true)
+
+
     }
 
 }
