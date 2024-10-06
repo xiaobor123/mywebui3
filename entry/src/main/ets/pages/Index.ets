@@ -29,8 +29,8 @@ struct Index {
         tabsController:this.tabsController,
         tabPages:[
           new tabPage(TabPageType.Web,"https://m.baidu.com"),
-          new tabPage(TabPageType.Web,"https://m.thepaper.cn/"),
-          new tabPage(TabPageType.Web,"https://www.openharmony.cn/")
+          new tabPage(TabPageType.Web,"https://m.thepaper.cn"),
+          new tabPage(TabPageType.Web,"https://www.openharmony.cn")
         ],
         tabContents: [
           {normalText:"hi"},

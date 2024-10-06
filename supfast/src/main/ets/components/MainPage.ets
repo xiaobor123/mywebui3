@@ -28,7 +28,7 @@ export struct WebTab {
   @Param tabContents: tabItemContent[] = []
   @BuilderParam pageBuilder:(item: tabPage, index: number) => void = CustomBuilder
   private webviewController1: webview.WebviewController = new webview.WebviewController();
-  private mydata: MyDataSource = new MyDataSource();
+  static  mydata: MyDataSource = new MyDataSource();
   @Builder TabBuilder(tabContent: tabItemContent, targetIndex : number) {
 
       Column() {
@@ -58,22 +58,22 @@ export struct WebTab {
 
   }
   aboutToAppear(): void {
-    createNWeb('https://xxx', this.getUIContext());
-
-    for(const item of this.tabPages){
-      webview.WebviewController.prepareForPageLoad(item.url, true, 2);
-      this.mydata.pushData(item);
-      createCommonWeb(item.url);
-    }
-
-
+    // createNWeb('https://xxx', this.getUIContext());
+    //
+    // for(const item of this.tabPages){
+    //   webview.WebviewController.prepareForPageLoad(item.url, true, 2);
+    //   this.mydata.pushData(item);
+    //   createCommonWeb(item.url);
+    // }
+    createCommonWeb(this.tabPages[0].url);
+    WebTab.mydata.pushData(this.tabPages[0]);
   }
   build() {
       Column(){
 
 
         Swiper(this.swiperController){
-          LazyForEach(this.mydata, (item: tabPage, index) => {
+          LazyForEach(WebTab.mydata, (item: tabPage, index) => {
             if (item.type == TabPageType.Web) {
               NodeContainer(getCommonWeb(item.url))
                 .height('90%')

@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\梅某彦\\.ohos\\config\\default_fast-tab_kdfEPtBPnBoTO57s5fwLLja8Z3zW6sl7ORyIUHRFFc8=.cer",
-          "storePassword": "0000001B3E0FD1233E38901372E10A9322238B3694A84689B3A6FAE9B9B1CB0F4FF4AF9065012E543D3833",
+          "certpath": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.cer",
+          "storePassword": "0000001B334FA7EE969DE38F65A4ECB30BB603151924B59BB674691F2B2CE64F1D752446A9DE63280964DA",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BF75D56EC9CAE30ED23E030BCDBF491DD931696281002FB518DCAF61098EA3BC0290769BECC691B",
-          "profile": "C:\\Users\\梅某彦\\.ohos\\config\\default_fast-tab_kdfEPtBPnBoTO57s5fwLLja8Z3zW6sl7ORyIUHRFFc8=.p7b",
+          "keyPassword": "0000001B8AF532CA57846CABE03963C41A949EA739FB3623343097D7339E0019407D83F8F3ED46041A1B7A",
+          "profile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\梅某彦\\.ohos\\config\\default_fast-tab_kdfEPtBPnBoTO57s5fwLLja8Z3zW6sl7ORyIUHRFFc8=.p12"
+          "storeFile": "C:\\Users\\Zoneshiyi\\.ohos\\config\\default_mywebui3_KOF8pzYyVowWWerFtTfA95W3VCScMLk2TktfmrL1BAo=.p12"
         }
       }
     ],

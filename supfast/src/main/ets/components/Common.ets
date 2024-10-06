@@ -5,6 +5,8 @@ import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import {configs,Config,basicResources,ResourceConfig} from './myjava'
+import { WebTab } from './MainPage'
+import { tabPage, TabPageType } from './TabItem'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 class Data{
@@ -25,6 +27,13 @@ function WebBuilder(data:Data) {
       .height('100%')
       .onPageVisible((event) => {
         console.log("click end2 ")
+
+        if(data.url == "https://m.baidu.com"){
+          createCommonWeb("https://m.thepaper.cn");
+          WebTab.mydata.pushData(new tabPage(TabPageType.Web, "https://m.thepaper.cn"));
+          createCommonWeb("https://www.openharmony.cn");
+          WebTab.mydata.pushData(new tabPage(TabPageType.Web, "https://www.openharmony.cn"));
+        }
       })
 
 
