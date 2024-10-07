@@ -6,7 +6,7 @@ import { webview } from '@kit.ArkWeb';
 import { NodeController, BuilderNode, Size, FrameNode }  from '@kit.ArkUI';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import {configs,Config,basicResources,ResourceConfig} from './myjava'
-import{mydata, uicontext} from './Index'
+import{mydata, uicontext,myWebUrl} from './WebTab'
 // @Builder中为动态组件的具体组件内容
 // Data为入参封装类
 export let isload1:number = 0
@@ -27,63 +27,61 @@ function WebBuilder(data:createWebData) {
       .fileAccess(true)
       .imageAccess(true)
       .onAppear(()=>{
-        if(data.url != 'https://m.baidu.com/') {
+        if(data.url != myWebUrl[0]) {
           webview.WebviewController.prepareForPageLoad(data.url, true, 2);
         }
       })
       .onPageVisible((event) => {
         console.log("Page visible "+data.url)
-        if(data.url == 'https://m.baidu.com/') {
-          data.controller.prefetchPage('https://www.openharmony.cn/')
+        if(data.url == myWebUrl[0]) {
+          data.controller.prefetchPage(myWebUrl[2])
         }
-        if(data.url == 'https://m.baidu.com/'&&isload1 ==0){
+        if(data.url == myWebUrl[0]&&isload1 ==0){
           isload1 = isload1+1
-          mybusinessNode2=createCommonWeb('https://m.thepaper.cn/',uicontext,data.controller);
+          mybusinessNode2=createCommonWeb(myWebUrl[1],uicontext,data.controller);
           mydata.pushData(mybusinessNode2)
         }
       })
       .onPageBegin((event) => {
         console.log("Page begin "+data.url)
-        if(data.url == 'https://m.thepaper.cn/'&&isload2 ==0) {
+        if(data.url == myWebUrl[1]&&isload2 ==0) {
           isload2 = isload2+1
-          mybusinessNode3=createCommonWeb('https://www.openharmony.cn/',uicontext,data.controller);
+          mybusinessNode3=createCommonWeb(myWebUrl[2],uicontext,data.controller);
           mydata.pushData(mybusinessNode3)
         }
       })
       .onPageEnd((event) => {
         console.log("Page end "+data.url)
       })
-    // .onControllerAttached(async () => {
-    //   if(data.url == 'https://m.baidu.com/'){
-    //       //taskPoolExecute(data.controller)
-    //     //taskPoolExecute(data.controller)
-    //
-    //     let array2: Array<Config> = configs
-    //
-    //     for (let config of array2) {
-    //       let content = await getContext().resourceManager.getRawFileContentSync(config.location);
-    //       try {
-    //         data.controller.precompileJavaScript(config.url, content, config.options)
-    //           .then((errCode: number) => {
-    //             console.log('precompile successfully!' );
-    //           }).catch((errCode: number) => {
-    //           console.error('precompile failed.' + errCode);
-    //         })
-    //       } catch (err) {
-    //         console.error('precompile failed!.' + err.code + err.message);
-    //       }
-    //     }
-    //
-    //     try {
-    //       data.controller.injectOfflineResources(await getData ());
-    //     } catch (err) {
-    //       console.error("error: " + err.code + " " + err.message);
-    //     }
-    //   }
+      .onControllerAttached(async () => {
+        if(data.url == myWebUrl[0]){
+            //taskPoolExecute(data.controller)
+          //taskPoolExecute(data.controller)
 
-    //离线资源免拦截
+          let array2: Array<Config> = configs
 
-    // })
+          for (let config of array2) {
+            let content = await getContext().resourceManager.getRawFileContentSync(config.location);
+            try {
+              data.controller.precompileJavaScript(config.url, content, config.options)
+                .then((errCode: number) => {
+                  console.log('precompile successfully!' );
+                }).catch((errCode: number) => {
+                console.error('precompile failed.' + errCode);
+              })
+            } catch (err) {
+              console.error('precompile failed!.' + err.code + err.message);
+            }
+          }
+
+          try {
+            data.controller.injectOfflineResources(await getData ());
+          } catch (err) {
+            console.error("error: " + err.code + " " + err.message);
+          }
+        }
+
+      })
 
   }
 }

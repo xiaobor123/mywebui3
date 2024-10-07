@@ -9,36 +9,36 @@ export interface Config {
 }
 
 export let configs: Array<Config> = [
-  {
-    url: 'https://www.openharmony.cn/_nuxt/0e255f6.js',
-    location: '0e255f6.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
-      ]
-    },
-  },
-  {
-    url: 'https://www.openharmony.cn/_nuxt/137ca0b.js',
-    location: '137ca0b.js',
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
-      ]
-    }
-  },
-  {
-    url: "https://www.openharmony.cn/_nuxt/5ff68ad.js",
-    location: "5ff68ad.js",
-    options: {
-      responseHeaders: [
-        { headerKey: 'JD-Tag', headerValue: 'xxx' },
-        { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
-      ]
-    }
-  },
+  // {
+  //   url: 'https://www.openharmony.cn/_nuxt/0e255f6.js',
+  //   location: '0e255f6.js',
+  //   options: {
+  //     responseHeaders: [
+  //       { headerKey: 'JD-Tag', headerValue: 'xxx' },
+  //       { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
+  //     ]
+  //   },
+  // },
+  // {
+  //   url: 'https://www.openharmony.cn/_nuxt/137ca0b.js',
+  //   location: '137ca0b.js',
+  //   options: {
+  //     responseHeaders: [
+  //       { headerKey: 'JD-Tag', headerValue: 'xxx' },
+  //       { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
+  //     ]
+  //   }
+  // },
+  // {
+  //   url: "https://www.openharmony.cn/_nuxt/5ff68ad.js",
+  //   location: "5ff68ad.js",
+  //   options: {
+  //     responseHeaders: [
+  //       { headerKey: 'JD-Tag', headerValue: 'xxx' },
+  //       { headerKey: 'Last-Modified', headerValue: 'Thu, 20 Mar 2014 10:33:07 GMT' }
+  //     ]
+  //   }
+  // },
   // {
   //   url: "https://www.openharmony.cn/_nuxt/b16c65c.js",
   //   location: "b16c65c.js",
@@ -82,30 +82,30 @@ export interface ResourceConfig {
 }
 
 export const basicResources: Array<ResourceConfig> = [
-  {
-    localPath: "logo.dcf95b3.png",
-    urlList: [
-      'https://www.openharmony.cn/_nuxt/img/logo.dcf95b3.png'
-    ],
-    type: webview.OfflineResourceType.IMAGE,
-    responseHeaders: []
-  },
-  {
-    localPath: "search.2585098.png",
-    urlList: [
-      'https://www.openharmony.cn/_nuxt/img/search.2585098.png'
-    ],
-    type: webview.OfflineResourceType.IMAGE,
-    responseHeaders: []
-  },
-  {
-    localPath: "button-icon-gray.6deb791.png",
-    urlList: [
-      'https://www.openharmony.cn/_nuxt/img/button-icon-gray.6deb791.png'
-    ],
-    type: webview.OfflineResourceType.IMAGE,
-    responseHeaders: []
-  },
+  // {
+  //   localPath: "logo.dcf95b3.png",
+  //   urlList: [
+  //     'https://www.openharmony.cn/_nuxt/img/logo.dcf95b3.png'
+  //   ],
+  //   type: webview.OfflineResourceType.IMAGE,
+  //   responseHeaders: []
+  // },
+  // {
+  //   localPath: "search.2585098.png",
+  //   urlList: [
+  //     'https://www.openharmony.cn/_nuxt/img/search.2585098.png'
+  //   ],
+  //   type: webview.OfflineResourceType.IMAGE,
+  //   responseHeaders: []
+  // },
+  // {
+  //   localPath: "button-icon-gray.6deb791.png",
+  //   urlList: [
+  //     'https://www.openharmony.cn/_nuxt/img/button-icon-gray.6deb791.png'
+  //   ],
+  //   type: webview.OfflineResourceType.IMAGE,
+  //   responseHeaders: []
+  // },
   // {
   //   localPath: "bgcPhone.a1b7568.png",
   //   urlList: [

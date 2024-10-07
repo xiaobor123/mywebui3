@@ -1,16 +1,10 @@
-import {getCommonWeb,myNodeController,createCommonWeb} from './WebRendering'
-import { SlidingTabController } from './SlidingTabController'
-import { SlidingTabs } from './SlidingTabs'
-import {MyDataSource} from './imple_idata'
-import { webview } from '@kit.ArkWeb';
+import { WebTabController } from './WebTabController'
+import {WebTabs} from './WebTab'
 
-
-export let mydata: MyDataSource = new MyDataSource();
-export let uicontext:UIContext
 @Entry
 @ComponentV2
 struct TabsExample {
-  tabController = new SlidingTabController()
+  WebController = new WebTabController()
   @Local tabs: Array<string> = [
     'https://m.baidu.com/',
     'https://m.thepaper.cn/',
@@ -21,32 +15,24 @@ struct TabsExample {
     ['澎湃新闻', $r('app.media.mine2_selected')],
     ['鸿蒙', $r('app.media.mine3_selected')]
   ];
-  @Local webviewController1: webview.WebviewController = new webview.WebviewController();
-  aboutToAppear(): void {
-    webview.WebviewController.prepareForPageLoad('https://m.baidu.com/', true, 2);
-    uicontext=this.getUIContext()
-    createCommonWeb('https://m.baidu.com/',this.getUIContext(),this.webviewController1);
-  }
   build() {
     Column() {
-      SlidingTabs({
-        tabs: this.tabs,
+      WebTabs({
+        WebUrl: this.tabs,
         names: this.names,
         barMode: "fixed",
-        tabController: this.tabController,
+        tabController: this.WebController,
         tabStyle: {
           indicatorWidthWrapTab: true,
           fontColorSelect: Color.Blue
         },
-        onTabIndicatorBuilder: () => {
+        onWebTabIndicatorBuilder: () => {
           this.TabIndicator()
         },
-        onTabItemBuilder: (tab, index) => {
+        onWebTabBarBuilder: (tab, index) => {
           this.TabItem(tab, index)
         }
-
       })
-      this.MySwiper(this.tabController)
     }
   }
 
@@ -61,44 +47,12 @@ struct TabsExample {
     Column(){
       Image(tab[1]).width(20).margin({bottom:4})
       Text(tab[0])
-        .fontColor(this.tabController.selectedTabIndex == index ? Color.Black : Color.Gray)
-        .fontWeight(this.tabController.selectedTabIndex == index ? FontWeight.Medium : FontWeight.Normal)
-        .fontSize(this.tabController.selectedTabIndex == index ? 18 : 16)
+        .fontColor(this.WebController.selectedTabIndex == index ? Color.Black : Color.Gray)
+        .fontWeight(this.WebController.selectedTabIndex == index ? FontWeight.Medium : FontWeight.Normal)
+        .fontSize(this.WebController.selectedTabIndex == index ? 18 : 16)
         .animation({ duration: 300 })
     }
   }
-
-  @Builder
-  MySwiper(tabController: SlidingTabController){
-    Swiper(tabController.swiperController) {
-      Stack() {
-        NodeContainer(getCommonWeb('https://m.baidu.com/'))
-          .height('100%')
-          .width('100%')
-      }
-
-      LazyForEach(mydata, (item: myNodeController | undefined) => {
-        Stack() {
-          NodeContainer(item)
-            .height('90%')
-            .width('100%')
-        }
-        .width('100%').height('100%')
-      }, (item: string) => item)
-    }.layoutWeight(1)
-    .onGestureSwipe((index, extraInfo) => {
-      tabController.swiperOnGestureSwipe(index, extraInfo)
-    })
-    .onAreaChange((oldValue, newValue) => {
-      tabController.swiperOnAreaChange(oldValue, newValue)
-    })
-    .onAnimationStart((index, targetIndex, extraInfo) => {
-      tabController.swiperOnAnimationStart(index, targetIndex, extraInfo)
-    })
-    // .indicator(false)
-  }
-
-
 }
 
 

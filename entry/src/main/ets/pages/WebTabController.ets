@@ -1,28 +1,17 @@
-/**
- * Filename: SlidingTabController
- * Author: XiaoQiWen
- * Date: 2024-07-13
- * Description:SlidingTab控制器,处理 tab和indicator的滚动
- * 如需搭配Swiper使用，需要调用Controller的以下几个方法和Swiper实现联动
- * swiperOnAnimationStart swiperOnAreaChange swiperOnGestureSwipe
- */
 import { Animator, AnimatorResult } from '@kit.ArkUI'
 import measure from '@ohos.measure'
-import { BarMode, ITabStyle } from './SlidingTabs'
+import { BarMode, MyTabStyle } from './WebTab'
 
 @ObservedV2
-export class SlidingTabController {
-  //当前选中的Tab Index
-  @Trace selectedTabIndex: number = 0
-  //控制指示器当前位置
-  @Trace indicatorOffset: number = 0
+export class WebTabController {
+  @Trace selectedTabIndex: number = 0//当前选中的Tab Index
+  @Trace indicatorOffset: number = 0//控制指示器当前位置
   @Trace indicatorWidth: number = 0
   private tabContainerArea?: Area
   private tabScrollArea?: Area
   private swiperArea?: Area
   private tabCount: number = 0
-  //每一个TabItem的宽度
-  @Trace tabItemWidth: number[] = []
+  @Trace tabItemWidth: number[] = []  //每一个TabItem的宽度
   tabScroller = new Scroller()
   swiperController = new SwiperController()
   animatorDuration: number = 300
@@ -36,12 +25,10 @@ export class SlidingTabController {
     let currentRatio: number = Math.abs(currentOffset / contentWidth)
     let targetIndex = index
     if (currentOffset < 0) {
-      //向左滑动 (下一个)
       if (this.isIndexValid(targetIndex + 1)) {
         targetIndex++
       }
     } else if (currentOffset > 0) {
-      //向右滑动 (上一个)
       if (this.isIndexValid(targetIndex - 1)) {
         targetIndex--
       }
@@ -100,7 +87,7 @@ export class SlidingTabController {
     this.tabScrollArea = area
   }
 
-  initTabChild(tabs: string[], barMode: BarMode, tabStyle: ITabStyle) {
+    show(tabs: string[], barMode: BarMode, tabStyle: MyTabStyle) {
     this.tabItemWidth = []
     this.tabCount = tabs.length
 
